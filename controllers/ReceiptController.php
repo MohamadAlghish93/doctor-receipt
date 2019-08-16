@@ -8,6 +8,7 @@ use app\models\ReceiptSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use app\models\Medicine;
 
 /**
  * ReceiptController implements the CRUD actions for Receipt model.
@@ -65,13 +66,20 @@ class ReceiptController extends Controller
     public function actionCreate()
     {
         $model = new Receipt();
+        $medicine = new Medicine();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            print_r($model->id);
+            print_r($medicine->receiptMedicines);
+            die();
+            $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
+        $model->date = date('d-m-Y');
         return $this->render('create', [
             'model' => $model,
+            'medicine' => $medicine
         ]);
     }
 

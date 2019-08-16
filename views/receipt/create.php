@@ -4,6 +4,7 @@ use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Receipt */
+/* @var $medicine app\models\Medicine */
 
 $this->title = 'Create Receipt';
 $this->params['breadcrumbs'][] = ['label' => 'Receipts', 'url' => ['index']];
@@ -15,6 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= $this->render('_form', [
         'model' => $model,
+        'medicine' => $medicine
     ]) ?>
 
 </div>

@@ -4,9 +4,12 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
 use app\models\Medicine;
+use kartik\select2\Select2;
+use kartik\date\DatePicker;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Receipt */
+/* @var $medicine app\models\Medicine */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
@@ -14,15 +17,30 @@ use app\models\Medicine;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'date')->textInput() ?>
+    <?= $form->field($model, 'date')->widget(DatePicker::className(), [
+        'name' => 'date',
+        'value' => date('dd-mm-yyyy', strtotime('+2 days')),
+        'options' => ['placeholder' => 'Select date ...'],
+        'pluginOptions' => [
+            'format' => 'dd-mm-yyyy',
+            'todayHighlight' => true
+        ]
+    ]) ?>
 
     <?= $form->field($model, 'patient_name')->textInput(['maxlength' => true]) ?>
 
-<!--    --><?//=
-//        $form->field($model, 'patient_name')->dropDownList(
-//
-//        )
-//    ?>
+    <?=
+         $form->field($medicine, 'receiptMedicines')->widget(Select2::classname(), [
+             'name' => 'medicine',
+             'value' => '',
+             'language' => 'ar',
+             'data' => ArrayHelper::map(Medicine::find()->all(), 'id' , 'name_arabic' ),
+             'options' => ['multiple' => true, 'placeholder' => 'Select Medicine ...'],
+             'pluginOptions' => [
+                 'allowClear' => true
+             ]
+        ]);
+    ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
