@@ -8,7 +8,10 @@ use app\models\ReceiptSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use app\models\Medicine;
+use app\models\mPDF\mpdfCls;
+use app\models\mPDF\HtmlRender;
+use app\models\TCPDF\PdfCls;
+
 
 /**
  * ReceiptController implements the CRUD actions for Receipt model.
@@ -66,20 +69,30 @@ class ReceiptController extends Controller
     public function actionCreate()
     {
         $model = new Receipt();
-        $medicine = new Medicine();
 
         if ($model->load(Yii::$app->request->post())) {
-            print_r($model->id);
-            print_r($medicine->receiptMedicines);
-            die();
+
+            $date=date_create($model->date);
+            $model->date = date_format($date,"Y/m/d H:i:s");
             $model->save();
-            return $this->redirect(['view', 'id' => $model->id]);
+
+            $dir = realpath(dirname(__FILE__).'/../');
+            $image = $dir . '/template/logo.png';
+
+            $medicineVar = Yii::$app->request->post('receiptMedicines');
+            $htmlObj = new HtmlRender();
+            $table = $htmlObj->renderTable($medicineVar);
+            $info = $htmlObj->renderInformation();
+            $infoPatient = $htmlObj->renderInformationPatient($model->patient_name);
+            $infoReceipt = $htmlObj->renderInformationReceipt($model->id);
+
+            $pdf = new PdfCls();
+            return $pdf->actionReport($table, $info, $infoPatient, $infoReceipt, $image);
         }
 
         $model->date = date('d-m-Y');
         return $this->render('create', [
-            'model' => $model,
-            'medicine' => $medicine
+            'model' => $model
         ]);
     }
 

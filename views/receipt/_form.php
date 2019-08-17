@@ -29,17 +29,16 @@ use kartik\date\DatePicker;
 
     <?= $form->field($model, 'patient_name')->textInput(['maxlength' => true]) ?>
 
-    <?=
-         $form->field($medicine, 'receiptMedicines')->widget(Select2::classname(), [
-             'name' => 'medicine',
-             'value' => '',
-             'language' => 'ar',
-             'data' => ArrayHelper::map(Medicine::find()->all(), 'id' , 'name_arabic' ),
-             'options' => ['multiple' => true, 'placeholder' => 'Select Medicine ...'],
-             'pluginOptions' => [
-                 'allowClear' => true
-             ]
-        ]);
+    <?= Select2::widget([
+        'name' => 'receiptMedicines',
+        'value' => '',
+        'language' => 'ar',
+        'data' => ArrayHelper::map(Medicine::find()->all(), 'id' , 'name_arabic' ),
+        'options' => ['multiple' => true, 'placeholder' => 'Select Medicine ...'],
+        'pluginOptions' => [
+            'allowClear' => true
+        ]
+    ]);
     ?>
 
     <div class="form-group">
