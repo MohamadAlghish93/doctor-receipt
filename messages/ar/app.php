@@ -29,4 +29,7 @@ return [
     'Mobile2' => 'موبايل 2',
     'Bio' => 'السيرة الذاتية',
     'Informations' => 'معلومات العيادة',
+    'Logo' => 'شعار PDF',
+    'SelectMedicines' => 'الادوية',
+    'Doctor' => 'عيادة الطبيب'
 ];

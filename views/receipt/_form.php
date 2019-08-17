@@ -34,7 +34,7 @@ use kartik\date\DatePicker;
         'value' => '',
         'language' => 'ar',
         'data' => ArrayHelper::map(Medicine::find()->all(), 'id' , 'name_arabic' ),
-        'options' => ['multiple' => true, 'placeholder' => 'Select Medicine ...'],
+        'options' => ['multiple' => true, 'placeholder' => Yii::t('app','SelectMedicines')],
         'pluginOptions' => [
             'allowClear' => true
         ]

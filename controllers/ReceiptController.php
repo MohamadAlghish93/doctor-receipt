@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\Information;
 use Yii;
 use app\models\Receipt;
 use app\models\ReceiptSearch;
@@ -72,17 +73,18 @@ class ReceiptController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {
 
+            $infoObj = Information::findOne(1);
             $date=date_create($model->date);
             $model->date = date_format($date,"Y/m/d H:i:s");
             $model->save();
 
             $dir = realpath(dirname(__FILE__).'/../');
-            $image = $dir . '/template/logo.png';
+            $image = $infoObj->logo; //$dir . '/template/logo.png';
 
             $medicineVar = Yii::$app->request->post('receiptMedicines');
             $htmlObj = new HtmlRender();
             $table = $htmlObj->renderTable($medicineVar);
-            $info = $htmlObj->renderInformation();
+            $info = $htmlObj->renderInformation($infoObj);
             $infoPatient = $htmlObj->renderInformationPatient($model->patient_name);
             $infoReceipt = $htmlObj->renderInformationReceipt($model->id);
 

@@ -26,7 +26,7 @@ AppAsset::register($this);
 <body>
 <?php $this->beginBody() ?>
 
-<div class="wrap">
+<div class="wrap" dir="rtl">
     <?php
     $languageItem = new cetver\LanguageSelector\items\DropDownLanguageItem([
         'languages' => [
@@ -36,7 +36,7 @@ AppAsset::register($this);
         'options' => ['encode' => false],
     ]);
     NavBar::begin([
-        'brandLabel' => 'Doctor',
+        'brandLabel' => Yii::t('app','Doctor'),
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',

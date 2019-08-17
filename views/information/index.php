@@ -35,6 +35,14 @@ $this->params['breadcrumbs'][] = $this->title;
             'mobile1',
             //'mobile2',
             //'bio:ntext',
+            [
+                'label' => Yii::t('app','Logo'),
+                'attribute' => 'logo',
+                'format' => 'html',
+                'value' => function($model){
+                    return yii\bootstrap\Html::img($model->logo, ['width' => '150']);
+                }
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

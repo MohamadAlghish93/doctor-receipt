@@ -14,6 +14,9 @@ class PdfCls
     public function actionReport($tbl, $info, $patientInfo, $infoReceipt, $image) {
 
         $this->pdf = new \TCPDF('p', 'mm', 'A5', true, 'UTF-8', false);
+        $this->pdf ->SetCreator(PDF_CREATOR);
+        $this->pdf ->SetAuthor('no name');
+        $this->pdf->SetTitle('وصفة طبية');
         $this->pdf->setPrintHeader(false);
 
         //
@@ -39,9 +42,9 @@ class PdfCls
         $this->addBreakLine();
         $this->pdf->writeHTML($info, true, false, false, false, 'R');
         $this->addBreakLine();
-        $this->pdf->writeHTML($patientInfo, true, false, false, false, '');
+        $this->pdf->writeHTML($patientInfo, true, false, false, false, 'R');
         $this->addBreakLine();
-        $this->pdf->writeHTML($tbl, true, false, false, false, '');
+        $this->pdf->writeHTML($tbl, true, false, false, false, 'R');
 
         $this->addBreakLine();
         $this->pdf->writeHTML('<hr>', true, false, true, false, '');
@@ -56,7 +59,6 @@ class PdfCls
     public function addTemplate($image) {
         $this->template_id = $this->pdf->startTemplate(60, 60, true);
         $this->pdf->StartTransform();
-        $this->pdf->StarPolygon(30, 30, 29, 10, 3, 0, 1, 'CNZ');
         $this->pdf->Image($image, 0, 0, 60, 60, '', '', '', true, 72, '', false, false, 0, false, false, false);
         $this->pdf->StopTransform();
         $this->pdf->SetXY(0, 0);

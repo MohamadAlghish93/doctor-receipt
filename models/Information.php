@@ -16,6 +16,7 @@ use Yii;
  * @property string $mobile1
  * @property string $mobile2
  * @property string $bio
+ * @property string $logo
  */
 class Information extends \yii\db\ActiveRecord
 {
@@ -36,6 +37,7 @@ class Information extends \yii\db\ActiveRecord
             [['name_doctor', 'address1', 'phone1', 'mobile1', 'bio'], 'required'],
             [['address1', 'address2', 'bio'], 'string'],
             [['name_doctor', 'phone1', 'phone2', 'mobile1', 'mobile2'], 'string', 'max' => 250],
+            [['logo'], 'file', 'extensions' => 'jpg,png,gif'],
         ];
     }
 
@@ -45,7 +47,7 @@ class Information extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
+            'id' => Yii::t('app','ID'),
             'name_doctor' => Yii::t('app','NameDoctor'),
             'address1' => Yii::t('app','Address1'),
             'address2' => Yii::t('app','Address2'),
@@ -54,6 +56,7 @@ class Information extends \yii\db\ActiveRecord
             'mobile1' => Yii::t('app','Mobile1'),
             'mobile2' => Yii::t('app','Mobile2'),
             'bio' => Yii::t('app','Bio'),
+            'logo' => Yii::t('app','Logo'),
         ];
     }
 }

@@ -15,11 +15,12 @@ class HtmlRender
         $table = '<table cellspacing="0" cellpadding="1" border="1">
         <thead> 
         <tr > 
+        <th width="8%">النوع</th>
+        <th width="8%">العيار</th> 
+        <th width="40%">الاسم العربي</th>
+        <th width="40%">الاسم</th>
         <th width="4%">#</th> 
-        <th width="40%">Name English</th>
-        <th width="40%">Name Arabic</th>
-        <th width="8%">Caliber</th> 
-        <th width="8%">Type</th> 
+ 
         </tr> </thead>         
         <tbody>';
 
@@ -28,11 +29,11 @@ class HtmlRender
             if (($item = Medicine::findOne($value)) !== null) {
 
                 $table .= '<tr> 
-                <th width="4%">' . ($key+1) . '</th> 
-                <td width="40%">' . $item->name_english . '</td>
-                <td width="40%">' . $item->name_arabic . '</td>
+                <td width="8%">' . $item->type . '</td>
                 <td width="8%">' . $item->caliber . '</td> 
-                <td width="8%">' . $item->type . '</td> 
+                <td width="40%">' . $item->name_arabic . '</td>
+                <td width="40%">' . $item->name_english . '</td>
+                <th width="4%">' . ($key+1) . '</th> 
                 </tr>';
             }
         }
@@ -43,16 +44,14 @@ class HtmlRender
         return $table;
     }
 
-    public function renderInformation(){
+    public function renderInformation($infoObj){
 
-        $infoObj = Information::findOne(1);
         $info = '';
-
         if ($infoObj != null) {
 
-            $info .= '<p>'. $infoObj->name_doctor .'</p>';
-            $info .= '<p>' . $infoObj->address1 .'</p>';
-            $info .= '<p>' . $infoObj->mobile1 .'</p>';
+            $info .= '<p>'. 'الطبيب :' . $infoObj->name_doctor . '</p>';
+            $info .= '<p>'. 'العنوان :' . $infoObj->address1 .'</p>';
+            $info .= '<p>'. 'الموبايل :' . $infoObj->mobile1 .'</p>';
         }
 
         return $info;
@@ -62,14 +61,17 @@ class HtmlRender
 
         $info = '';
         $info .= '<p> # '. $number.'</p>';
-        $info .= '<p> Date ' . date('d/m/y') .'</p>';
+        $info .= '<p>'. 'التاريخ :' . date('d/m/y') .'</p>';
 
         return $info;
     }
 
     public function renderInformationPatient($patientName){
 
-        $info = '<p> Name of patient :' . $patientName . '</p>';
+        $info = '<p>' . 'اسم المريض :' . $patientName . ' ';
+        $info .= '&nbsp;&nbsp;' . 'الحالة :' . '__________'  . ' ';
+        $info .= '&nbsp;&nbsp;' . 'ملاحظة :'. '__________'  . '</p>';
+
         return $info;
     }
 }

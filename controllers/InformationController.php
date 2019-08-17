@@ -8,6 +8,7 @@ use app\models\InformationSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * InformationController implements the CRUD actions for Information model.
@@ -66,7 +67,15 @@ class InformationController extends Controller
     {
         $model = new Information();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) ) {
+
+            $model->logo = UploadedFile::getInstance($model, 'logo');
+            $imageName = $model->name_doctor.rand(1, 4000) . '.' . $model->logo->extension;
+            $imagePath = 'upload' . $imageName;
+            $model->logo->saveAs($imagePath);
+
+            $model->logo = $imagePath;
+            $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -86,7 +95,15 @@ class InformationController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+
+            $model->logo = UploadedFile::getInstance($model, 'logo');
+            $imageName = date('Y-m-dh:i:s'). '.' . $model->logo->extension;
+            $imagePath = 'upload/' . $imageName;
+            $model->logo->saveAs($imagePath);
+
+            $model->logo = $imagePath;
+            $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         }
 

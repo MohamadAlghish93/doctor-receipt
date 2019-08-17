@@ -29,4 +29,7 @@ return [
     'Mobile2' => 'Mobile2',
     'Bio' => 'Bio',
     'Informations' => 'Informations',
+    'Logo' => 'logo',
+    'SelectMedicines' => 'Select Medicines',
+    'Doctor' => 'Doctor'
 ];
