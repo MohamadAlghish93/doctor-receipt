@@ -116,6 +116,12 @@ class SiteController extends Controller
         ]);
     }
 
+    public function actionLanguage($lang)
+    {
+        Yii::$app->language = $lang;
+        return $this->render('index');
+    }
+
     /**
      * Displays about page.
      *

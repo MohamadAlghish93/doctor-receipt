@@ -6,8 +6,8 @@ use yii\helpers\Html;
 /* @var $model app\models\Receipt */
 /* @var $medicine app\models\Medicine */
 
-$this->title = 'Create Receipt';
-$this->params['breadcrumbs'][] = ['label' => 'Receipts', 'url' => ['index']];
+$this->title = Yii::t('app','Create');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app','Receipts'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="receipt-create">

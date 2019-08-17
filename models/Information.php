@@ -46,14 +46,14 @@ class Information extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name_doctor' => 'Name Doctor',
-            'address1' => 'Address1',
-            'address2' => 'Address2',
-            'phone1' => 'Phone1',
-            'phone2' => 'Phone2',
-            'mobile1' => 'Mobile1',
-            'mobile2' => 'Mobile2',
-            'bio' => 'Bio',
+            'name_doctor' => Yii::t('app','NameDoctor'),
+            'address1' => Yii::t('app','Address1'),
+            'address2' => Yii::t('app','Address2'),
+            'phone1' => Yii::t('app','Phone1'),
+            'phone2' => Yii::t('app','Phone2'),
+            'mobile1' => Yii::t('app','Mobile1'),
+            'mobile2' => Yii::t('app','Mobile2'),
+            'bio' => Yii::t('app','Bio'),
         ];
     }
 }

@@ -7,16 +7,16 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\InformationSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Informations';
+$this->title = Yii::t('app','Informations') ;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="information-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>
-        <?= Html::a('Create Information', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+<!--    <p>-->
+<!--        --><?//= Html::a('Create Information', ['create'], ['class' => 'btn btn-success']) ?>
+<!--    </p>-->
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
@@ -29,10 +29,10 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'name_doctor',
             'address1:ntext',
-            'address2:ntext',
+//            'address2:ntext',
             'phone1',
             //'phone2',
-            //'mobile1',
+            'mobile1',
             //'mobile2',
             //'bio:ntext',
 

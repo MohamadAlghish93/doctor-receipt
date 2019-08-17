@@ -42,11 +42,11 @@ class Medicine extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'name_arabic' => 'Name Arabic',
-            'name_english' => 'Name English',
-            'caliber' => 'Caliber',
-            'type' => 'Type',
+            'id' => Yii::t('app','ID') ,
+            'name_arabic' => Yii::t('app','NameArabic') ,
+            'name_english' => Yii::t('app','NameEnglish') ,
+            'caliber' => Yii::t('app','Caliber') ,
+            'type' => Yii::t('app','Type') ,
         ];
     }
 

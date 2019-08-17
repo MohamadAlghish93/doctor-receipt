@@ -5,10 +5,10 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Receipt */
 
-$this->title = 'Update Receipt: ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Receipts', 'url' => ['index']];
+$this->title = Yii::t('app','Update') . ' ' . $model->id;
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app','Receipts'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = Yii::t('app','Update') ;
 ?>
 <div class="receipt-update">
 

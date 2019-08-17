@@ -41,9 +41,9 @@ class Receipt extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'date' => 'Date',
-            'patient_name' => 'Patient Name',
+            'id' => Yii::t('app','ID') ,
+            'date' => Yii::t('app','Date'),
+            'patient_name' => Yii::t('app','PatientName'),
         ];
     }
 

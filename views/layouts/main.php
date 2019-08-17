@@ -28,6 +28,13 @@ AppAsset::register($this);
 
 <div class="wrap">
     <?php
+    $languageItem = new cetver\LanguageSelector\items\DropDownLanguageItem([
+        'languages' => [
+            'en' => '<span class="flag-icon flag-icon-us"></span> English',
+            'ar' => '<span class="flag-icon flag-icon-ar"></span> Arabic',
+        ],
+        'options' => ['encode' => false],
+    ]);
     NavBar::begin([
         'brandLabel' => 'Doctor',
         'brandUrl' => Yii::$app->homeUrl,
@@ -38,10 +45,10 @@ AppAsset::register($this);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
-            ['label' => 'Home', 'url' => ['/site/index']],
-            ['label' => 'Medicine', 'url' => ['/medicine/index']],
-            ['label' => 'Receipt', 'url' => ['/receipt/create']],
-            ['label' => 'Setting', 'url' => ['/information/index']],
+            ['label' => Yii::t('app','Home'), 'url' => ['/site/index']],
+            ['label' => Yii::t('app','Medicine'), 'url' => ['/medicine/index']],
+            ['label' => Yii::t('app','Receipt'), 'url' => ['/receipt/create']],
+            ['label' => Yii::t('app','Setting'), 'url' => ['/information/index']],
             // Yii::$app->user->isGuest ? (
             //     ['label' => 'Login', 'url' => ['/site/login']]
             // ) : (
@@ -54,18 +61,29 @@ AppAsset::register($this);
             //     . Html::endForm()
             //     . '</li>'
             // )
+//            $languageItem->toArray(),
         ],
     ]);
     NavBar::end();
     ?>
 
-    <div class="container">
-        <?= Breadcrumbs::widget([
-            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-        ]) ?>
-        <?= Alert::widget() ?>
-        <?= $content ?>
-    </div>
+    <? if (Yii::$app->language === 'ar') { ?>
+        <div class="container" dir="rtl">
+            <?= Breadcrumbs::widget([
+                'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+            ]) ?>
+            <?= Alert::widget() ?>
+            <?= $content ?>
+        </div>
+    <? } else { ?>
+        <div class="container">
+            <?= Breadcrumbs::widget([
+                'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+            ]) ?>
+            <?= Alert::widget() ?>
+            <?= $content ?>
+        </div>
+    <? } ?>
 </div>
 
 <footer class="footer">
