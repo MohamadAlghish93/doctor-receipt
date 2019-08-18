@@ -12,6 +12,7 @@ use Yii;
  * @property string $name_english
  * @property string $caliber
  * @property string $type
+ * @property string $how_to_use
  *
  * @property ReceiptMedicine[] $receiptMedicines
  */
@@ -31,6 +32,7 @@ class Medicine extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['how_to_use'], 'string'],
             [['name_arabic', 'name_english'], 'string', 'max' => 500],
             [['caliber', 'type'], 'string', 'max' => 250],
         ];
@@ -47,6 +49,7 @@ class Medicine extends \yii\db\ActiveRecord
             'name_english' => Yii::t('app','NameEnglish') ,
             'caliber' => Yii::t('app','Caliber') ,
             'type' => Yii::t('app','Type') ,
+            'how_to_use' => Yii::t('app','HowToUse'),
         ];
     }
 

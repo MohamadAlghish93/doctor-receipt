@@ -31,6 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'name_english',
             'caliber',
             'type',
+            'how_to_use',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

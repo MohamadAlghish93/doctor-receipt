@@ -25,6 +25,9 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'type') ?>
 
+    <?= $form->field($model, 'how_to_use') ?>
+
+
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
         <?= Html::resetButton('Reset', ['class' => 'btn btn-outline-secondary']) ?>

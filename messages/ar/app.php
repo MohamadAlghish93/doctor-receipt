@@ -31,5 +31,6 @@ return [
     'Informations' => 'معلومات العيادة',
     'Logo' => 'شعار PDF',
     'SelectMedicines' => 'الادوية',
-    'Doctor' => 'عيادة الطبيب'
+    'Doctor' => 'عيادة الطبيب',
+    'HowToUse' => 'طريقة الاستخدام'
 ];

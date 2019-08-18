@@ -32,8 +32,8 @@ use kartik\date\DatePicker;
     <?= Select2::widget([
         'name' => 'receiptMedicines',
         'value' => '',
-        'language' => 'ar',
-        'data' => ArrayHelper::map(Medicine::find()->all(), 'id' , 'name_arabic' ),
+        'language' => 'en',
+        'data' => ArrayHelper::map(Medicine::find()->all(), 'id' , 'name_english' ),
         'options' => ['multiple' => true, 'placeholder' => Yii::t('app','SelectMedicines')],
         'pluginOptions' => [
             'allowClear' => true

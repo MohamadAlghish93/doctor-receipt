@@ -31,5 +31,6 @@ return [
     'Informations' => 'Informations',
     'Logo' => 'logo',
     'SelectMedicines' => 'Select Medicines',
-    'Doctor' => 'Doctor'
+    'Doctor' => 'Doctor',
+    'HowToUse' => 'How To Use',
 ];
