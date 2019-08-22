@@ -15,9 +15,10 @@ class HtmlRender
         $table = '<table cellspacing="0" cellpadding="1" border="1">
         <thead> 
         <tr > 
-        <th width="8%">النوع</th>
-        <th width="8%">العيار</th> 
-        <th width="40%">الاسم العربي</th>
+        <th width="24%">الاستخدام</th>
+        <th width="6%">النوع</th>
+        <th width="6%">العيار</th> 
+        <th width="20%">الاسم العربي</th>
         <th width="40%">الاسم</th>
         <th width="4%">#</th> 
  
@@ -28,10 +29,11 @@ class HtmlRender
 
             if (($item = Medicine::findOne($value)) !== null) {
 
-                $table .= '<tr> 
-                <td width="8%">' . $item->type . '</td>
-                <td width="8%">' . $item->caliber . '</td> 
-                <td width="40%">' . $item->name_arabic . '</td>
+                $table .= '<tr>
+                <td width="24%">' . $item->how_to_use . '</td> 
+                <td width="6%">' . $item->type . '</td>
+                <td width="6%">' . $item->caliber . '</td> 
+                <td width="20%">' . $item->name_arabic . '</td>
                 <td width="40%">' . $item->name_english . '</td>
                 <th width="4%">' . ($key+1) . '</th> 
                 </tr>';

@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\Information;
+use app\models\Medicine;
 use Yii;
 use app\models\Receipt;
 use app\models\ReceiptSearch;
@@ -13,6 +14,7 @@ use app\models\mPDF\mpdfCls;
 use app\models\mPDF\HtmlRender;
 use app\models\TCPDF\PdfCls;
 
+use yii\db\Query;
 
 /**
  * ReceiptController implements the CRUD actions for Receipt model.
@@ -78,10 +80,9 @@ class ReceiptController extends Controller
             $model->date = date_format($date,"Y/m/d H:i:s");
             $model->save();
 
-            $dir = realpath(dirname(__FILE__).'/../');
-            $image = $infoObj->logo; //$dir . '/template/logo.png';
-
+            $image = $infoObj->logo;
             $medicineVar = Yii::$app->request->post('receiptMedicines');
+
             $htmlObj = new HtmlRender();
             $table = $htmlObj->renderTable($medicineVar);
             $info = $htmlObj->renderInformation($infoObj);
@@ -130,6 +131,38 @@ class ReceiptController extends Controller
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+
+
+    public function actionMedicineList($q = null, $id = null) {
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        $out = ['results' => [
+            'id' => '',
+            'text' => '',
+            'caliber' => '',
+            'how' => '',
+        ]
+        ];
+
+        if (!is_null($q)) {
+            $query = new Query;
+            $query->select('id, name_english AS text, caliber, how_to_use AS how')
+                ->from('medicine')
+                ->where(['like', 'name_english', $q])
+                ->limit(20);
+            $command = $query->createCommand();
+            $data = $command->queryAll();
+            $out['results'] = array_values($data);
+        }
+        elseif ($id > 0) {
+            $out['results'] = [
+                'id' => $id,
+                'text' => Medicine::find($id)->name_english,
+                'caliber' => Medicine::find($id)->caliber,
+                'how' => Medicine::find($id)->how_to_use,
+            ];
+        }
+        return $out;
     }
 
     /**

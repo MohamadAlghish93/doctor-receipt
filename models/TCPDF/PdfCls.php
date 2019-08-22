@@ -11,9 +11,10 @@ class PdfCls
     var $pdf;
     var $template_id;
 
+
     public function actionReport($tbl, $info, $patientInfo, $infoReceipt, $image) {
 
-        $this->pdf = new \TCPDF('p', 'mm', 'A5', true, 'UTF-8', false);
+        $this->pdf = new \TCPDF('p', 'mm', 'A4', true, 'UTF-8', false);
         $this->pdf ->SetCreator(PDF_CREATOR);
         $this->pdf ->SetAuthor('no name');
         $this->pdf->SetTitle('وصفة طبية');
@@ -49,6 +50,7 @@ class PdfCls
         $this->addBreakLine();
         $this->pdf->writeHTML('<hr>', true, false, true, false, '');
 //
+        $this->pdf->SetTitle($this->getName(10));
         return $this->pdf->Output();
     }
 
@@ -63,6 +65,18 @@ class PdfCls
         $this->pdf->StopTransform();
         $this->pdf->SetXY(0, 0);
         $this->pdf->endTemplate();
+    }
+
+    function getName($n) {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $randomString = '';
+
+        for ($i = 0; $i < $n; $i++) {
+            $index = rand(0, strlen($characters) - 1);
+            $randomString .= $characters[$index];
+        }
+
+        return $randomString;
     }
 
 }

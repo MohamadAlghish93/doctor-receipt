@@ -109,6 +109,9 @@ class MedicineController extends Controller
         return $this->redirect(['index']);
     }
 
+
+
+
     /**
      * Finds the Medicine model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
@@ -124,4 +127,6 @@ class MedicineController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+
+
 }
