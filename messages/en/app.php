@@ -33,5 +33,6 @@ return [
     'SelectMedicines' => 'Select Medicines',
     'Doctor' => 'Doctor',
     'HowToUse' => 'How To Use',
-    'Patients' => 'Patients'
+    'Patients' => 'Patients',
+    'File' => 'File',
 ];

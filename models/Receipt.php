@@ -10,6 +10,7 @@ use Yii;
  * @property int $id
  * @property string $date
  * @property string $patient_name
+ * @property string $file_path
  *
  * @property ReceiptMedicine[] $receiptMedicines
  */
@@ -31,7 +32,7 @@ class Receipt extends \yii\db\ActiveRecord
         return [
             [['date', 'patient_name'], 'required'],
             [['date'], 'safe'],
-            [['patient_name'], 'string', 'max' => 500],
+            [['patient_name', 'file_path'], 'string', 'max' => 500],
         ];
     }
 
@@ -44,6 +45,7 @@ class Receipt extends \yii\db\ActiveRecord
             'id' => Yii::t('app','ID') ,
             'date' => Yii::t('app','Date'),
             'patient_name' => Yii::t('app','PatientName'),
+            'file_path' => 'File Path',
         ];
     }
 

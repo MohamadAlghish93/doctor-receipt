@@ -33,5 +33,6 @@ return [
     'SelectMedicines' => 'الادوية',
     'Doctor' => 'عيادة الطبيب',
     'HowToUse' => 'طريقة الاستخدام',
-    'Patients' => 'المراجعات'
+    'Patients' => 'المراجعات',
+    'File' => 'ملف',
 ];

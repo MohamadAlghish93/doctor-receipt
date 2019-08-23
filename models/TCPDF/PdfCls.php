@@ -2,6 +2,8 @@
 
 namespace app\models\TCPDF;
 
+use Yii;
+
 require_once ('tcpdf.php');
 
 
@@ -12,7 +14,7 @@ class PdfCls
     var $template_id;
 
 
-    public function actionReport($tbl, $info, $patientInfo, $infoReceipt, $image) {
+    public function actionReport($tbl, $info, $patientInfo, $infoReceipt, $image, $data) {
 
         $this->pdf = new \TCPDF('p', 'mm', 'A4', true, 'UTF-8', false);
         $this->pdf ->SetCreator(PDF_CREATOR);
@@ -51,7 +53,13 @@ class PdfCls
         $this->pdf->writeHTML('<hr>', true, false, true, false, '');
 //
         $this->pdf->SetTitle($this->getName(10));
-        return $this->pdf->Output();
+
+        $path = realpath(dirname(__FILE__).'/../../');
+
+        $nameDate = date('Y-m-dh:i:s');
+        $path = $path . '/web/upload/pdf/' . $data['patient_name'] . $nameDate . '.pdf';
+        $this->pdf->Output($path, 'F');
+        return $path;
     }
 
     public function addBreakLine() {

@@ -90,13 +90,26 @@ class ReceiptController extends Controller
             $infoReceipt = $htmlObj->renderInformationReceipt($model->id);
 
             $pdf = new PdfCls();
-            return $pdf->actionReport($table, $info, $infoPatient, $infoReceipt, $image);
+            $data['patient_name'] = $model->patient_name;
+            $pathPDF = $pdf->actionReport($table, $info, $infoPatient, $infoReceipt, $image, $data);
+
+            $model->file_path = $pathPDF;
+            $model->save();
+
+            return Yii::$app->response->sendFile($pathPDF, 'temp.pdf', ['inline'=>false]);
         }
 
         $model->date = date('d-m-Y');
         return $this->render('create', [
             'model' => $model
         ]);
+    }
+
+    public function actionPdf($id) {
+
+        $model = Receipt::findOne($id);
+
+        return Yii::$app->response->sendFile($model->file_path, $model->patient_name . '.pdf');
     }
 
     /**
