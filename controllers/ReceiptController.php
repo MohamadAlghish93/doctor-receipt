@@ -76,7 +76,7 @@ class ReceiptController extends Controller
         if ($model->load(Yii::$app->request->post())) {
 
             $infoObj = Information::findOne(1);
-            $date=date_create($model->date);
+            $date = date_create($model->date);
             $model->date = date_format($date,"Y/m/d H:i:s");
             $model->save();
 
@@ -84,7 +84,7 @@ class ReceiptController extends Controller
             $medicineVar = Yii::$app->request->post('receiptMedicines');
 
             $htmlObj = new HtmlRender();
-            $table = $htmlObj->renderTable($medicineVar);
+            $table = $htmlObj->renderTable($medicineVar, $model);
             $info = $htmlObj->renderInformation($infoObj);
             $infoPatient = $htmlObj->renderInformationPatient($model->patient_name);
             $infoReceipt = $htmlObj->renderInformationReceipt($model->id);

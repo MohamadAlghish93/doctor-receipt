@@ -24,13 +24,21 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+//            ['class' => 'yii\grid\SerialColumn'],
 
             'id',
             'date',
             'patient_name',
+            [
+                'label' => Yii::t('app','Medicines'),
+                'value' => function($model){
+                    return join(', ', yii\helpers\ArrayHelper::map($model->receiptMedicines, 'id', 'name_english'));
+                },
 
-            ['class' => 'yii\grid\ActionColumn'],
+            ],
+
+
+            ['class' => 'yii\grid\ActionColumn','template'=>'{view} {delete}'],
         ],
     ]); ?>
 

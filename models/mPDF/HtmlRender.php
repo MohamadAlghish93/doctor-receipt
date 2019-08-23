@@ -10,16 +10,15 @@ use app\models\Medicine;
 class HtmlRender
 {
 
-    public function renderTable($medicines) {
+    public function renderTable($medicines, $modelLink) {
 
         $table = '<table cellspacing="0" cellpadding="1" border="1">
         <thead> 
         <tr > 
-        <th width="24%">الاستخدام</th>
+        <th width="34%">الاستخدام</th>
         <th width="6%">النوع</th>
         <th width="6%">العيار</th> 
-        <th width="20%">الاسم العربي</th>
-        <th width="40%">الاسم</th>
+        <th width="50%">الاسم</th>
         <th width="4%">#</th> 
  
         </tr> </thead>         
@@ -29,12 +28,13 @@ class HtmlRender
 
             if (($item = Medicine::findOne($value)) !== null) {
 
+                $modelLink->link('receiptMedicines', $item);
+
                 $table .= '<tr>
-                <td width="24%">' . $item->how_to_use . '</td> 
+                <td width="34%">' . $item->how_to_use . '</td> 
                 <td width="6%">' . $item->type . '</td>
                 <td width="6%">' . $item->caliber . '</td> 
-                <td width="20%">' . $item->name_arabic . '</td>
-                <td width="40%">' . $item->name_english . '</td>
+                <td width="50%">' . $item->name_english . '</td>
                 <th width="4%">' . ($key+1) . '</th> 
                 </tr>';
             }

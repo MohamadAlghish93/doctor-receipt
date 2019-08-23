@@ -32,5 +32,6 @@ return [
     'Logo' => 'شعار PDF',
     'SelectMedicines' => 'الادوية',
     'Doctor' => 'عيادة الطبيب',
-    'HowToUse' => 'طريقة الاستخدام'
+    'HowToUse' => 'طريقة الاستخدام',
+    'Patients' => 'المراجعات'
 ];

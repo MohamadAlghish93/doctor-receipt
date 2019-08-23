@@ -31,18 +31,6 @@ use yii\web\JsExpression;
 
     <?= $form->field($model, 'patient_name')->textInput(['maxlength' => true]) ?>
 
-<!--    --><?//= Select2::widget([
-//        'name' => 'receiptMedicines',
-//        'value' => '',
-//        'language' => 'en',
-//        'data' => ArrayHelper::map(Medicine::find()->all(), 'id' , 'name_english' ),
-//        'options' => ['multiple' => true, 'placeholder' => Yii::t('app','SelectMedicines')],
-//        'pluginOptions' => [
-//            'allowClear' => true
-//        ]
-//    ]);
-//    ?>
-
     <br>
 
     <?php
@@ -77,7 +65,6 @@ JS;
         'name' => 'receiptMedicines',
         'value' => '',
         'language' => 'ar',
-//        'data' => ArrayHelper::map(Medicine::find()->all(), 'id' , 'name_english' ),
         'options' => ['multiple' => true, 'placeholder' => Yii::t('app','SelectMedicines')],
         'pluginOptions' => [
             'allowClear' => true,

@@ -48,6 +48,7 @@ AppAsset::register($this);
             ['label' => Yii::t('app','Home'), 'url' => ['/site/index']],
             ['label' => Yii::t('app','Medicine'), 'url' => ['/medicine/index']],
             ['label' => Yii::t('app','Receipt'), 'url' => ['/receipt/create']],
+            ['label' => Yii::t('app','Patients'), 'url' => ['/receipt/index']],
             ['label' => Yii::t('app','Setting'), 'url' => ['/information/index']],
             // Yii::$app->user->isGuest ? (
             //     ['label' => 'Login', 'url' => ['/site/login']]
@@ -90,7 +91,6 @@ AppAsset::register($this);
     <div class="container">
         <p class="pull-left">&copy; <?= date('Y') ?></p>
 
-<!--        <p class="pull-right">--><?//= Yii::powered() ?><!--</p>-->
         <p class="pull-right"><?= 'SY'?></p>
     </div>
 </footer>

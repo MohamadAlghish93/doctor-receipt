@@ -52,6 +52,9 @@ class Receipt extends \yii\db\ActiveRecord
      */
     public function getReceiptMedicines()
     {
-        return $this->hasMany(ReceiptMedicine::className(), ['receipt_id' => 'id']);
+        return $this->hasMany(Medicine::className(), ['id' => 'medicine_id'])
+            ->viaTable('receipt_medicine', ['receipt_id' => 'id']);
+
+//        return $this->hasMany(ReceiptMedicine::className(), ['receipt_id' => 'id']);
     }
 }
