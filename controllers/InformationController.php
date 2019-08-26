@@ -71,7 +71,8 @@ class InformationController extends Controller
 
             $model->logo = UploadedFile::getInstance($model, "logo");
             $imageName = $model->name_doctor.rand(1, 4000) . "." . $model->logo->extension;
-            $imagePath = "upload" . $imageName;
+            $imagePath = "upload/" . $imageName;
+
             $model->logo->saveAs($imagePath);
 
             $model->logo = $imagePath;
@@ -100,6 +101,7 @@ class InformationController extends Controller
             $model->logo = UploadedFile::getInstance($model, "logo");
             $imageName = date("Y-m-dh:i:s"). "." . $model->logo->extension;
             $imagePath = "upload/" . $imageName;
+
             $model->logo->saveAs($imagePath);
 
             $model->logo = $imagePath;

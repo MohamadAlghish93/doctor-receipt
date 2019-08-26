@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\models\Information;
 use app\models\Medicine;
+use app\models\ReceiptMedicine;
 use Yii;
 use app\models\Receipt;
 use app\models\ReceiptSearch;
@@ -144,8 +145,14 @@ class ReceiptController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
-
+        $model = $this->findModel($id);
+        $relations = ReceiptMedicine::findAll(
+            array("receipt_id" =>  $id)
+        );
+        foreach ($relations as $value) {
+            $value->delete();
+        }
+        $model->delete();
         return $this->redirect(["index"]);
     }
 
