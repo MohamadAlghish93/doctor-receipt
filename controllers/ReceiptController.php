@@ -10,10 +10,9 @@ use app\models\ReceiptSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use app\models\mPDF\mpdfCls;
 use app\models\mPDF\HtmlRender;
 use app\models\TCPDF\PdfCls;
-
+use yii\data\ActiveDataProvider;
 use yii\db\Query;
 
 /**
@@ -27,10 +26,10 @@ class ReceiptController extends Controller
     public function behaviors()
     {
         return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['POST'],
+            "verbs" => [
+                "class" => VerbFilter::className(),
+                "actions" => [
+                    "delete" => ["POST"],
                 ],
             ],
         ];
@@ -43,11 +42,13 @@ class ReceiptController extends Controller
     public function actionIndex()
     {
         $searchModel = new ReceiptSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $query = Yii::$app->request->queryParams;
 
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
+        $dataProvider = $searchModel->search($query);
+
+        return $this->render("index", [
+            "searchModel" => $searchModel,
+            "dataProvider" => $dataProvider,
         ]);
     }
 
@@ -59,14 +60,14 @@ class ReceiptController extends Controller
      */
     public function actionView($id)
     {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
+        return $this->render("view", [
+            "model" => $this->findModel($id),
         ]);
     }
 
     /**
      * Creates a new Receipt model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
+     * If creation is successful, the browser will be redirected to the "view" page.
      * @return mixed
      */
     public function actionCreate()
@@ -81,7 +82,7 @@ class ReceiptController extends Controller
             $model->save();
 
             $image = $infoObj->logo;
-            $medicineVar = Yii::$app->request->post('receiptMedicines');
+            $medicineVar = Yii::$app->request->post("receiptMedicines");
 
             $htmlObj = new HtmlRender();
             $table = $htmlObj->renderTable($medicineVar, $model);
@@ -90,18 +91,20 @@ class ReceiptController extends Controller
             $infoReceipt = $htmlObj->renderInformationReceipt($model->id);
 
             $pdf = new PdfCls();
-            $data['patient_name'] = $model->patient_name;
-            $pathPDF = $pdf->actionReport($table, $info, $infoPatient, $infoReceipt, $image, $data);
+            $data["patient_name"] = $model->patient_name;
 
-            $model->file_path = $pathPDF;
-            $model->save();
-
-            return Yii::$app->response->sendFile($pathPDF, 'temp.pdf', ['inline'=>false]);
+            return $pdf->actionReport($table, $info, $infoPatient, $infoReceipt, $image, $data);
+//            $pathPDF = $pdf->actionReport($table, $info, $infoPatient, $infoReceipt, $image, $data);
+//
+//            $model->file_path = $pathPDF;
+//            $model->save();
+//
+//            return Yii::$app->response->sendFile($pathPDF, "temp.pdf", ["inline"=>false]);
         }
 
-        $model->date = date('d-m-Y');
-        return $this->render('create', [
-            'model' => $model
+        $model->date = date("d-m-Y");
+        return $this->render("create", [
+            "model" => $model
         ]);
     }
 
@@ -109,12 +112,12 @@ class ReceiptController extends Controller
 
         $model = Receipt::findOne($id);
 
-        return Yii::$app->response->sendFile($model->file_path, $model->patient_name . '.pdf');
+        return Yii::$app->response->sendFile($model->file_path, $model->patient_name . ".pdf");
     }
 
     /**
      * Updates an existing Receipt model.
-     * If update is successful, the browser will be redirected to the 'view' page.
+     * If update is successful, the browser will be redirected to the "view" page.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -124,17 +127,17 @@ class ReceiptController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(["view", "id" => $model->id]);
         }
 
-        return $this->render('update', [
-            'model' => $model,
+        return $this->render("update", [
+            "model" => $model,
         ]);
     }
 
     /**
      * Deletes an existing Receipt model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * If deletion is successful, the browser will be redirected to the "index" page.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -143,36 +146,36 @@ class ReceiptController extends Controller
     {
         $this->findModel($id)->delete();
 
-        return $this->redirect(['index']);
+        return $this->redirect(["index"]);
     }
 
 
     public function actionMedicineList($q = null, $id = null) {
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-        $out = ['results' => [
-            'id' => '',
-            'text' => '',
-            'caliber' => '',
-            'how' => '',
+        $out = ["results" => [
+            "id" => "",
+            "text" => "",
+            "caliber" => "",
+            "how" => "",
         ]
         ];
 
         if (!is_null($q)) {
             $query = new Query;
-            $query->select('id, name_english AS text, caliber, how_to_use AS how')
-                ->from('medicine')
-                ->where(['like', 'name_english', $q])
+            $query->select("id, name_english AS text, caliber, how_to_use AS how")
+                ->from("medicine")
+                ->where(["like", "name_english", $q])
                 ->limit(20);
             $command = $query->createCommand();
             $data = $command->queryAll();
-            $out['results'] = array_values($data);
+            $out["results"] = array_values($data);
         }
         elseif ($id > 0) {
-            $out['results'] = [
-                'id' => $id,
-                'text' => Medicine::find($id)->name_english,
-                'caliber' => Medicine::find($id)->caliber,
-                'how' => Medicine::find($id)->how_to_use,
+            $out["results"] = [
+                "id" => $id,
+                "text" => Medicine::find($id)->name_english,
+                "caliber" => Medicine::find($id)->caliber,
+                "how" => Medicine::find($id)->how_to_use,
             ];
         }
         return $out;
@@ -191,6 +194,6 @@ class ReceiptController extends Controller
             return $model;
         }
 
-        throw new NotFoundHttpException('The requested page does not exist.');
+        throw new NotFoundHttpException("The requested page does not exist.");
     }
 }

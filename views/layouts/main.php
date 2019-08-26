@@ -29,69 +29,46 @@ AppAsset::register($this);
 <div class="wrap" dir="rtl">
     <?php
     $languageItem = new cetver\LanguageSelector\items\DropDownLanguageItem([
-        'languages' => [
-            'en' => '<span class="flag-icon flag-icon-us"></span> English',
-            'ar' => '<span class="flag-icon flag-icon-ar"></span> Arabic',
+        "languages" => [
+            "en" => "<span class='flag-icon flag-icon-us'></span> English",
+            "ar" => "<span class='flag-icon flag-icon-ar'></span> Arabic",
         ],
-        'options' => ['encode' => false],
+        "options" => ["encode" => false],
     ]);
     NavBar::begin([
-        'brandLabel' => Yii::t('app','Doctor'),
-        'brandUrl' => Yii::$app->homeUrl,
-        'options' => [
-            'class' => 'navbar-inverse navbar-fixed-top',
+        "brandLabel" => Yii::t("app","Doctor"),
+        "brandUrl" => Yii::$app->homeUrl,
+        "options" => [
+            "class" => "navbar-inverse navbar-fixed-top",
         ],
     ]);
     echo Nav::widget([
-        'options' => ['class' => 'navbar-nav navbar-right'],
-        'items' => [
-            ['label' => Yii::t('app','Home'), 'url' => ['/site/index']],
-            ['label' => Yii::t('app','Medicine'), 'url' => ['/medicine/index']],
-            ['label' => Yii::t('app','Receipt'), 'url' => ['/receipt/create']],
-            ['label' => Yii::t('app','Patients'), 'url' => ['/receipt/index']],
-            ['label' => Yii::t('app','Setting'), 'url' => ['/information/index']],
-            // Yii::$app->user->isGuest ? (
-            //     ['label' => 'Login', 'url' => ['/site/login']]
-            // ) : (
-            //     '<li>'
-            //     . Html::beginForm(['/site/logout'], 'post')
-            //     . Html::submitButton(
-            //         'Logout (' . Yii::$app->user->identity->username . ')',
-            //         ['class' => 'btn btn-link logout']
-            //     )
-            //     . Html::endForm()
-            //     . '</li>'
-            // )
-//            $languageItem->toArray(),
+        "options" => ["class" => "navbar-nav navbar-right"],
+        "items" => [
+            ["label" => Yii::t("app","Home"), "url" => ["/site/index"]],
+            ["label" => Yii::t("app","Medicine"), "url" => ["/medicine/index"]],
+            ["label" => Yii::t("app","Receipt"), "url" => ["/receipt/create"]],
+            ["label" => Yii::t("app","Patients"), "url" => ["/receipt/index"]],
+            ["label" => Yii::t("app","Setting"), "url" => ["/information/index"]],
         ],
     ]);
     NavBar::end();
     ?>
 
-    <? if (Yii::$app->language === 'ar') { ?>
-        <div class="container" dir="rtl">
-            <?= Breadcrumbs::widget([
-                'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-            ]) ?>
-            <?= Alert::widget() ?>
-            <?= $content ?>
-        </div>
-    <? } else { ?>
-        <div class="container">
-            <?= Breadcrumbs::widget([
-                'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-            ]) ?>
-            <?= Alert::widget() ?>
-            <?= $content ?>
-        </div>
-    <? } ?>
+    <div class="container" dir="rtl">
+        <?= Breadcrumbs::widget([
+            "links" => isset($this->params["breadcrumbs"]) ? $this->params["breadcrumbs"] : [],
+        ]) ?>
+        <?= Alert::widget() ?>
+        <?= $content ?>
+    </div>
 </div>
 
 <footer class="footer">
     <div class="container">
-        <p class="pull-left">&copy; <?= date('Y') ?></p>
+        <p class="pull-left">&copy; <?= date("Y") ?></p>
 
-        <p class="pull-right"><?= 'SY'?></p>
+        <p class="pull-right"><?= "SY"?></p>
     </div>
 </footer>
 

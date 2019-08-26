@@ -12,18 +12,18 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'name_arabic')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, "name_arabic")->textInput(["maxlength" => true]) ?>
 
-    <?= $form->field($model, 'name_english')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, "name_english")->textInput(["maxlength" => true]) ?>
 
-    <?= $form->field($model, 'caliber')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, "caliber")->textInput(["maxlength" => true]) ?>
 
-    <?= $form->field($model, 'type')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, "type")->textInput(["maxlength" => true]) ?>
 
-    <?= $form->field($model, 'how_to_use')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, "how_to_use")->textarea(["rows" => 6]) ?>
 
     <div class="form-group">
-        <?= Html::submitButton(Yii::t('app','Save'), ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton(Yii::t("app","Save"), ["class" => "btn btn-success"]) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
