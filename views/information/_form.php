@@ -32,6 +32,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, "bio")->textarea(["rows" => 6]) ?>
 
+    <?= $form->field($model, 'acceciblate')->textarea(['rows' => 6]) ?>
+
     <?= $form->field($model, "logo")->fileInput() ?>
 
     <div class="form-group">

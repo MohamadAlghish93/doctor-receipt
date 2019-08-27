@@ -14,13 +14,11 @@ class HtmlRender
 
         $table = '<table cellspacing="0" cellpadding="1" border="1">
         <thead> 
-        <tr > 
-        <th width="34%">الاستخدام</th>
-        <th width="6%">النوع</th>
-        <th width="6%">العيار</th> 
+        <tr >
+        <th width="4%">#</th>
         <th width="50%">الاسم</th>
-        <th width="4%">#</th> 
- 
+        <th width="12%">العيار</th> 
+        <th width="34%">الاستخدام</th>
         </tr> </thead>         
         <tbody>';
 
@@ -31,11 +29,10 @@ class HtmlRender
                 $modelLink->link('receiptMedicines', $item);
 
                 $table .= '<tr>
-                <td width="34%">' . $item->how_to_use . '</td> 
-                <td width="6%">' . $item->type . '</td>
-                <td width="6%">' . $item->caliber . '</td> 
+                <th width="4%">' . ($key+1) . '</th>
                 <td width="50%">' . $item->name_english . '</td>
-                <th width="4%">' . ($key+1) . '</th> 
+                <td width="12%">' . $item->caliber . '</td> 
+                <td width="34%">' . $item->how_to_use . '</td> 
                 </tr>';
             }
         }
@@ -46,18 +43,44 @@ class HtmlRender
         return $table;
     }
 
-    public function renderInformation($infoObj){
+    public function renderInformationHeader($infoObj){
 
-        $info = '';
+        $table = '';
         if ($infoObj != null) {
 
-            $info .= '<p>'. 'الطبيب :' . $infoObj->name_doctor . '</p>';
-            $info .= '<p>'. 'العنوان :' . $infoObj->address1 .'</p>';
-            $info .= '<p>'. 'الموبايل :' . $infoObj->mobile1 .'</p>';
+            $table = '<table cellspacing="0" cellpadding="1" border="0" dir="rtl">
+            <tbody>';
+
+            $table .= '<tr>
+            <td width="50%">' . $infoObj->name_doctor  . '</td>
+            <td width="50%">' . $infoObj->bio . '</td>
+            </tr>';
+            $table .= '</tbody> </table>';
         }
 
-        return $info;
+        return $table;
     }
+
+
+    public function renderInformationFooter($infoObj){
+
+        $table = '';
+        if ($infoObj != null) {
+
+            $table = '<table cellspacing="0" cellpadding="1" border="0" dir="rtl">
+                <tbody>';
+
+            $table .= '<tr>
+                <td width="40%">' . $infoObj->acceciblate . '</td>
+                <td width="10%"></td>
+                <td width="50%">' . $infoObj->address1  . '</td>
+                </tr>';
+            $table .= '</tbody> </table>';
+        }
+
+        return $table;
+    }
+
 
     public function renderInformationReceipt($number){
 
@@ -71,8 +94,7 @@ class HtmlRender
     public function renderInformationPatient($patientName){
 
         $info = '<p>' . 'اسم المريض :' . $patientName . ' ';
-        $info .= '&nbsp;&nbsp;' . 'الحالة :' . '__________'  . ' ';
-        $info .= '&nbsp;&nbsp;' . 'ملاحظة :'. '__________'  . '</p>';
+        $info .= '&nbsp;&nbsp;' . 'الحالة :' . '__________'  . '</p>';
 
         return $info;
     }

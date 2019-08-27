@@ -87,14 +87,18 @@ class ReceiptController extends Controller
 
             $htmlObj = new HtmlRender();
             $table = $htmlObj->renderTable($medicineVar, $model);
-            $info = $htmlObj->renderInformation($infoObj);
+            $infoHeader = $htmlObj->renderInformationHeader($infoObj);
+            $infoFooterTbl = $htmlObj->renderInformationFooter($infoObj);
             $infoPatient = $htmlObj->renderInformationPatient($model->patient_name);
             $infoReceipt = $htmlObj->renderInformationReceipt($model->id);
 
             $pdf = new PdfCls();
             $data["patient_name"] = $model->patient_name;
 
-            return $pdf->actionReport($table, $info, $infoPatient, $infoReceipt, $image, $data);
+            $infoFooter['table'] = $infoFooterTbl;
+            $infoFooter['numberReceipt'] = $model->id;
+
+            return $pdf->actionReport($table, $infoHeader, $infoFooter, $infoPatient, $infoReceipt, $image, $data);
 //            $pathPDF = $pdf->actionReport($table, $info, $infoPatient, $infoReceipt, $image, $data);
 //
 //            $model->file_path = $pathPDF;

@@ -35,4 +35,5 @@ return [
     "HowToUse" => "How To Use",
     "Patients" => "Patients",
     "File" => "File",
+    "Acceciblate" => "Acceciblate",
 ];

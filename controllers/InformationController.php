@@ -99,12 +99,13 @@ class InformationController extends Controller
         if ($model->load(Yii::$app->request->post())) {
 
             $model->logo = UploadedFile::getInstance($model, "logo");
-            $imageName = date("Y-m-dh:i:s"). "." . $model->logo->extension;
-            $imagePath = "upload/" . $imageName;
+            if ($model->logo != null) {
+                $imageName = date("Y-m-dh:i:s"). "." . $model->logo->extension;
+                $imagePath = "upload/" . $imageName;
+                $model->logo->saveAs($imagePath);
+                $model->logo = $imagePath;
+            }
 
-            $model->logo->saveAs($imagePath);
-
-            $model->logo = $imagePath;
             $model->save();
             return $this->redirect(["view", "id" => $model->id]);
         }

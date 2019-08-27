@@ -35,4 +35,5 @@ return [
     "HowToUse" => "طريقة الاستخدام",
     "Patients" => "المراجعات",
     "File" => "ملف",
+    "Acceciblate" => "أوقات الدوام",
 ];

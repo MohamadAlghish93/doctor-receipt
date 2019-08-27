@@ -31,6 +31,7 @@ $this->params["breadcrumbs"][] = $this->title;
             "mobile1",
             "mobile2",
             "bio:ntext",
+            "acceciblate:ntext",
             "logo:image"
         ],
     ]) ?>
