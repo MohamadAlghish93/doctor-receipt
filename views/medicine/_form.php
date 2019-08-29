@@ -73,9 +73,6 @@ use wbraganca\dynamicform\DynamicFormWidget;
         </div>
     </div>
 
-    <?= $form->field($model, "caliber")->textInput(["maxlength" => true]) ?>
-
-    <?= $form->field($model, "how_to_use")->textarea(["rows" => 6]) ?>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t("app","Save"), ["class" => "btn btn-success"]) ?>

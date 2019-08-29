@@ -173,9 +173,11 @@ class ReceiptController extends Controller
 
         if (!is_null($q)) {
             $query = new Query;
-            $query->select("id, name_english AS text, caliber, how_to_use AS how")
+            $query->select("medicine_detail.id, medicine.name_english AS text, medicine_detail.caliber, medicine_detail.how_to_use AS how")
                 ->from("medicine")
-                ->where(["like", "name_english", $q])
+                ->innerJoin("medicine_detail",
+                    "medicine.id = medicine_detail.medicine_id")
+                ->where(["like", "medicine.name_english", $q])
                 ->limit(20);
             $command = $query->createCommand();
             $data = $command->queryAll();

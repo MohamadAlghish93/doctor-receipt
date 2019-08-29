@@ -45,8 +45,8 @@ class MedicineDetail extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'medicine_id' => 'Medicine ID',
-            'caliber' => 'Caliber',
-            'how_to_use' => 'How To Use',
+            'caliber' => Yii::t('app','Caliber') ,
+            'how_to_use' => Yii::t('app','HowToUse'),
         ];
     }
 
