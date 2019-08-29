@@ -22,21 +22,22 @@ class HtmlRender
         </tr> </thead>         
         <tbody>';
 
-        foreach ($medicines as $key=>$value){
+        if (!empty($medicines)) {
+            foreach ($medicines as $key=>$value){
 
-            if (($item = Medicine::findOne($value)) !== null) {
+                if (($item = Medicine::findOne($value)) !== null) {
 
-                $modelLink->link('receiptMedicines', $item);
+                    $modelLink->link('receiptMedicines', $item);
 
-                $table .= '<tr>
+                    $table .= '<tr>
                 <th width="4%">' . ($key+1) . '</th>
                 <td width="50%">' . $item->name_english . '</td>
                 <td width="12%">' . $item->caliber . '</td> 
                 <td width="34%">' . $item->how_to_use . '</td> 
                 </tr>';
+                }
             }
         }
-
 
         $table .= '</tbody> </table>';
 

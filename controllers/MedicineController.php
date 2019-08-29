@@ -2,9 +2,11 @@
 
 namespace app\controllers;
 
+use app\models\MedicineDetail;
 use Yii;
 use app\models\Medicine;
 use app\models\MedicineSearch;
+use app\models\Model;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -65,13 +67,54 @@ class MedicineController extends Controller
     public function actionCreate()
     {
         $model = new Medicine();
+        $modelDetail = [new MedicineDetail()];
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(["view", "id" => $model->id]);
+        if ($model->load(Yii::$app->request->post()) ) {
+
+            $modelDetail = Model::createMultiple(MedicineDetail::classname());
+            Model::loadMultiple($modelDetail, Yii::$app->request->post());
+
+            // ajax validation
+            if (Yii::$app->request->isAjax) {
+                Yii::$app->response->format = Response::FORMAT_JSON;
+                return ArrayHelper::merge(
+                    ActiveForm::validateMultiple($modelDetail),
+                    ActiveForm::validate($model)
+                );
+            }
+
+            // validate all models
+            $valid = $model->validate();
+
+            $valid = Model::validateMultiple($modelDetail) && $valid;
+
+            if ($valid) {
+                $transaction = \Yii::$app->db->beginTransaction();
+                try {
+                    if ($flag = $model->save(false)) {
+
+                        foreach ($modelDetail as $iter) {
+                            $iter->medicine_id = $model->id;
+                            if (! ($flag = $iter->save(false))) {
+                                $transaction->rollBack();
+                                break;
+                            }
+                        }
+                    }
+                    if ($flag) {
+                        $transaction->commit();
+                        return $this->redirect(['view', 'id' => $model->id]);
+                    }
+                } catch (Exception $e) {
+                    $transaction->rollBack();
+                }
+            }
+
         }
 
         return $this->render("create", [
             "model" => $model,
+            'modelDetail' => (empty($modelDetail)) ? [new MedicineDetail()] : $modelDetail,
         ]);
     }
 
@@ -85,13 +128,54 @@ class MedicineController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $modelDetail = $model->getMedicineDetails()->all();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(["view", "id" => $model->id]);
+        if ($model->load(Yii::$app->request->post()) ) {
+
+            $modelDetail = Model::createMultiple(MedicineDetail::classname());
+            Model::loadMultiple($modelDetail, Yii::$app->request->post());
+
+            // ajax validation
+            if (Yii::$app->request->isAjax) {
+                Yii::$app->response->format = Response::FORMAT_JSON;
+                return ArrayHelper::merge(
+                    ActiveForm::validateMultiple($modelDetail),
+                    ActiveForm::validate($model)
+                );
+            }
+
+            // validate all models
+            $valid = $model->validate();
+
+            $valid = Model::validateMultiple($modelDetail) && $valid;
+
+            if ($valid) {
+                $transaction = \Yii::$app->db->beginTransaction();
+                try {
+                    if ($flag = $model->save(false)) {
+
+                        foreach ($modelDetail as $iter) {
+                            $iter->medicine_id = $model->id;
+                            if (! ($flag = $iter->save(false))) {
+                                $transaction->rollBack();
+                                break;
+                            }
+                        }
+                    }
+                    if ($flag) {
+                        $transaction->commit();
+                        return $this->redirect(['view', 'id' => $model->id]);
+                    }
+                } catch (Exception $e) {
+                    $transaction->rollBack();
+                }
+            }
+
         }
 
         return $this->render("update", [
             "model" => $model,
+            'modelDetail' => (empty($modelDetail)) ? [new MedicineDetail()] : $modelDetail,
         ]);
     }
 
@@ -104,7 +188,16 @@ class MedicineController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model =  $this->findModel($id);
+
+        $relations = MedicineDetail::findAll(
+            array("medicine_id" =>  $id)
+        );
+        foreach ($relations as $value) {
+            $value->delete();
+        }
+
+        $model->delete();
 
         return $this->redirect(["index"]);
     }

@@ -63,4 +63,12 @@ class Medicine extends \yii\db\ActiveRecord
 
 //        return $this->hasMany(ReceiptMedicine::className(), ['medicine_id' => 'id']);
     }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getMedicineDetails()
+    {
+        return $this->hasMany(MedicineDetail::className(), ['medicine_id' => 'id']);
+    }
 }
