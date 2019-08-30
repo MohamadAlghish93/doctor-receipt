@@ -82,29 +82,27 @@ class ReceiptController extends Controller
             $model->date = date_format($date,"Y/m/d H:i:s");
             $model->save();
 
-            $image = $infoObj->logo;
-            $medicineVar = Yii::$app->request->post("receiptMedicines");
+            if (!empty($infoObj)) {
 
-            $htmlObj = new HtmlRender();
-            $table = $htmlObj->renderTable($medicineVar, $model);
-            $infoHeader = $htmlObj->renderInformationHeader($infoObj);
-            $infoFooterTbl = $htmlObj->renderInformationFooter($infoObj);
-            $infoPatient = $htmlObj->renderInformationPatient($model->patient_name);
-            $infoReceipt = $htmlObj->renderInformationReceipt($model->id);
+                $image = $infoObj->logo;
+                $medicineVar = Yii::$app->request->post("receiptMedicines");
 
-            $pdf = new PdfCls();
-            $data["patient_name"] = $model->patient_name;
+                $htmlObj = new HtmlRender();
+                $table = $htmlObj->renderTable($medicineVar, $model);
+                $infoHeader = $htmlObj->renderInformationHeader($infoObj);
+                $infoFooterTbl = $htmlObj->renderInformationFooter($infoObj);
+                $infoPatient = $htmlObj->renderInformationPatient($model->patient_name);
+                $infoReceipt = $htmlObj->renderInformationReceipt($model->id);
 
-            $infoFooter['table'] = $infoFooterTbl;
-            $infoFooter['numberReceipt'] = $model->id;
+                $pdf = new PdfCls();
+                $data["patient_name"] = $model->patient_name;
 
-            return $pdf->actionReport($table, $infoHeader, $infoFooter, $infoPatient, $infoReceipt, $image, $data);
-//            $pathPDF = $pdf->actionReport($table, $info, $infoPatient, $infoReceipt, $image, $data);
-//
-//            $model->file_path = $pathPDF;
-//            $model->save();
-//
-//            return Yii::$app->response->sendFile($pathPDF, "temp.pdf", ["inline"=>false]);
+                $infoFooter['table'] = $infoFooterTbl;
+                $infoFooter['numberReceipt'] = $model->id;
+
+                return $pdf->actionReport($table, $infoHeader, $infoFooter, $infoPatient, $infoReceipt, $image, $data);
+
+            }
         }
 
         $model->date = date("d-m-Y");

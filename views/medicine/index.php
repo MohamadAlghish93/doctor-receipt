@@ -26,9 +26,7 @@ $this->params["breadcrumbs"][] = $this->title;
             "id",
             "name_arabic",
             "name_english",
-            "caliber",
             "type",
-            "how_to_use",
 
             ["class" => "yii\grid\ActionColumn"],
         ],
