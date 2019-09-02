@@ -130,7 +130,7 @@ class MedicineController extends Controller
         $model = $this->findModel($id);
         $modelDetail = $model->getMedicineDetails()->all();
 
-        if ($model->load(Yii::$app->request->post()) ) {
+        if ($model->load(Yii::$app->request->post())) {
 
             $modelDetail = Model::createMultiple(MedicineDetail::classname());
             Model::loadMultiple($modelDetail, Yii::$app->request->post());
