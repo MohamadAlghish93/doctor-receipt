@@ -4,6 +4,8 @@ namespace app\controllers;
 
 use app\models\Information;
 use app\models\Medicine;
+use app\models\MedicineDetail;
+use app\models\Model;
 use app\models\ReceiptMedicine;
 use Yii;
 use app\models\Receipt;
@@ -74,6 +76,7 @@ class ReceiptController extends Controller
     public function actionCreate()
     {
         $model = new Receipt();
+        $modelDetail = [new MedicineDetail()];
 
         if ($model->load(Yii::$app->request->post())) {
 
@@ -86,9 +89,59 @@ class ReceiptController extends Controller
 
                 $image = $infoObj->logo;
                 $medicineVar = Yii::$app->request->post("receiptMedicines");
+                $medicineDetailArr = array();
 
                 $htmlObj = new HtmlRender();
-                $table = $htmlObj->renderTable($medicineVar, $model);
+
+
+                $modelDetail = Model::createMultiple(MedicineDetail::classname());
+                Model::loadMultiple($modelDetail, Yii::$app->request->post());
+
+                $transaction = \Yii::$app->db->beginTransaction();
+                $flag = false;
+
+                if (!empty($medicineVar)) {
+                    foreach ($medicineVar as $key => $value) {
+
+                        $elem = Medicine::findOne($value);
+
+                        // ajax validation
+                        if (Yii::$app->request->isAjax) {
+                            Yii::$app->response->format = Response::FORMAT_JSON;
+                            return ArrayHelper::merge(
+                                ActiveForm::validateMultiple($modelDetail),
+                                ActiveForm::validate($elem)
+                            );
+                        }
+
+                        $valid = Model::validateMultiple($modelDetail) ;
+
+                        if ($valid) {
+
+                            try {
+                                $iter = $modelDetail[$key];
+
+                                $iter->medicine_id = $elem->id;
+                                if (! ($flag = $iter->save(false))) {
+                                    $transaction->rollBack();
+                                    break;
+                                }
+
+                                array_push($medicineDetailArr, $iter->id);
+
+                            } catch (Exception $e) {
+                                $transaction->rollBack();
+                            }
+                        }
+                    }
+                }
+
+                if ($flag) {
+                    $transaction->commit();
+                }
+
+                $table = $htmlObj->renderTable($medicineDetailArr, $model);
+
                 $infoHeader = $htmlObj->renderInformationHeader($infoObj);
                 $infoFooterTbl = $htmlObj->renderInformationFooter($infoObj);
                 $infoPatient = $htmlObj->renderInformationPatient($model->patient_name);
@@ -107,7 +160,8 @@ class ReceiptController extends Controller
 
         $model->date = date("d-m-Y");
         return $this->render("create", [
-            "model" => $model
+            "model" => $model,
+            'modelDetail' => (empty($modelDetail)) ? [new MedicineDetail()] : $modelDetail
         ]);
     }
 
@@ -171,10 +225,8 @@ class ReceiptController extends Controller
 
         if (!is_null($q)) {
             $query = new Query;
-            $query->select("medicine_detail.id, medicine.name_english AS text, medicine_detail.caliber, medicine_detail.how_to_use AS how")
+            $query->select("medicine.id, medicine.name_english AS text ")
                 ->from("medicine")
-                ->innerJoin("medicine_detail",
-                    "medicine.id = medicine_detail.medicine_id")
                 ->where(["like", "medicine.name_english", $q])
                 ->limit(20);
             $command = $query->createCommand();

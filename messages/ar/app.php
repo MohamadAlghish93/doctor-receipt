@@ -36,4 +36,5 @@ return [
     "Patients" => "المراجعات",
     "File" => "ملف",
     "Acceciblate" => "أوقات الدوام",
+    "Details" => "تفاصيل"
 ];

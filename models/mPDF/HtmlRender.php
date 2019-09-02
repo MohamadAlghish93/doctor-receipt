@@ -34,11 +34,11 @@ class HtmlRender
                     $modelLink->link('receiptMedicines', $item);
 
                     $table .= '<tr>
-                <th width="4%">' . ($key+1) . '</th>
-                <td width="50%">' . $item->name_english . '</td>
-                <td width="12%">' . $elem->caliber . '</td> 
-                <td width="34%">' . $elem->how_to_use . '</td> 
-                </tr>';
+                    <th width="4%">' . ($key+1) . '</th>
+                    <td width="50%">' . $item->name_english . '</td>
+                    <td width="12%">' . $elem->caliber . '</td> 
+                    <td width="34%">' . $elem->how_to_use . '</td> 
+                    </tr>';
                 }
             }
         }

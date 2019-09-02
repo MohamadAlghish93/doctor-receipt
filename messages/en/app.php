@@ -36,4 +36,5 @@ return [
     "Patients" => "Patients",
     "File" => "File",
     "Acceciblate" => "Acceciblate",
+    "Details" => "Details"
 ];
