@@ -24,7 +24,8 @@
         "cetver/yii2-language-selector": "^1.0",
         "powerkernel/yii2-flag-icon-css": "*",
         "wbraganca/yii2-dynamicform": "^2.0",
-        "2amigos/yii2-tinymce-widget": "~1.1"
+        "2amigos/yii2-tinymce-widget": "~1.1",
+        "2amigos/yii2-date-picker-widget": "~1.0"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

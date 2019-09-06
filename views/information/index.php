@@ -21,17 +21,9 @@ $this->params["breadcrumbs"][] = $this->title;
 
             "id",
             "name_doctor",
-            "address1:ntext",
+            "address1:html",
             "phone1",
             "mobile1",
-            [
-                "label" => Yii::t("app","Logo"),
-                "attribute" => "logo",
-                "format" => "html",
-                "value" => function($model){
-                    return yii\bootstrap\Html::img($model->logo, ["width" => "150"]);
-                }
-            ],
 
             ["class" => "yii\grid\ActionColumn","template"=>"{view} {update}"],
         ],

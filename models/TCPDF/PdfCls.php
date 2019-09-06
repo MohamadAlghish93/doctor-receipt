@@ -18,8 +18,9 @@ class MYPDF extends \TCPDF {
 
         $this->writeHTMLCell($w = 0, $h = 0, $x = '', $y = '', $this->infoH, $border = 0, $ln = 1, $fill = 0, $reseth = true, $align = 'top', $autopadding = true);
 
-        $image_file = K_PATH_IMAGES.'logo.jpg';
-        $this->Image($image_file, 70, 5, 15, '', 'JPG', '', 'T', false, 300, '', false, false, 0, false, false, false);
+        // image of logo
+//        $image_file = K_PATH_IMAGES.'logo.jpg';
+//        $this->Image($image_file, 70, 5, 15, '', 'JPG', '', 'T', false, 300, '', false, false, 0, false, false, false);
 
     }
 
@@ -35,7 +36,7 @@ class MYPDF extends \TCPDF {
         $this->SetFont('aefurat', '', 12);
         $format = "رقم %s أ/ر/14   وصفة طبية";
         $htmlFooter = sprintf($format, $this->infoF['numberReceipt']);
-        $this->Cell(0, 0, $htmlFooter, 1, 1, 'C', 0, '', 3);
+//        $this->Cell(0, 0, $htmlFooter, 1, 1, 'C', 0, '', 3);
 
         $this->SetFont('aealarabiya', 'I', 8);
         $this->Cell(0, 10, $this->getAliasNumPage(), 0, 1, 'C', 0, '', 0, false, 'T', 'M');

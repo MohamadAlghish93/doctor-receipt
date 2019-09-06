@@ -6,8 +6,8 @@ use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
 use app\models\Medicine;
 use kartik\select2\Select2;
-use kartik\date\DatePicker;
-
+//use kartik\date\DatePicker;
+use dosamigos\datepicker\DatePicker;
 use yii\web\JsExpression;
 
 /* @var $this yii\web\View */
@@ -21,15 +21,19 @@ use yii\web\JsExpression;
 
     <?php $form = ActiveForm::begin(['id' => 'dynamic-form']); ?>
 
-    <?= $form->field($model, 'date')->widget(DatePicker::className(), [
-        'name' => 'date',
-        'value' => date('dd-mm-yyyy', strtotime('+2 days')),
-        'options' => ['placeholder' => 'Select date ...'],
-        'pluginOptions' => [
+    <?= $form->field($model, 'date')->widget(
+    DatePicker::className(), [
+        // inline too, not bad
+        'inline' => false,
+        'template' => '{addon}{input}',
+         'size' => 'md',
+         // modify template for custom rendering
+        'clientOptions' => [
+            'autoclose' => true,
             'format' => 'dd-mm-yyyy',
-            'todayHighlight' => true
+            'todayHighlight' => true,
         ]
-    ]) ?>
+    ]);?>
 
     <?= $form->field($model, 'patient_name')->textInput(['maxlength' => true]) ?>
 

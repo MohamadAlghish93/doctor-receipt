@@ -32,20 +32,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'date',
             'patient_name',
             [
-                'attribute' => 'file',
-                'label' =>  Yii::t('app','File'),
-                'value' => function ($model) {
-                    return Html::a('<i class="glyphicon glyphicon-download-alt"></i>', [
-                        'receipt/pdf',
-                        'id' => $model->id,
-                    ], [
-                        'class' => 'btn btn-primary',
-                        'target' => '_blank',
-                    ]);
-                },
-                'format' => 'raw',
-            ],
-            [
                 'label' => Yii::t('app','Medicines'),
                 'value' => function($model){
                     return join(', ', yii\helpers\ArrayHelper::map($model->receiptMedicines, 'id', 'name_english'));
