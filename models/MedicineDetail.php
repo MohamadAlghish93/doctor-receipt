@@ -11,6 +11,7 @@ use Yii;
  * @property int $medicine_id
  * @property string $caliber
  * @property string $how_to_use
+ * @property string $medicine_name
  *
  * @property Medicine $medicine
  */
@@ -33,6 +34,7 @@ class MedicineDetail extends \yii\db\ActiveRecord
             [['medicine_id'], 'integer'],
             [['how_to_use'], 'string'],
             [['caliber'], 'string', 'max' => 250],
+            [['medicine_name'], 'string', 'max' => 500],
             [['medicine_id'], 'exist', 'skipOnError' => true, 'targetClass' => Medicine::className(), 'targetAttribute' => ['medicine_id' => 'id']],
         ];
     }
@@ -44,9 +46,10 @@ class MedicineDetail extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'medicine_id' => 'Medicine ID',
+            'medicine_id' => Yii::t('app','Medicines'),
             'caliber' => Yii::t('app','Caliber') ,
             'how_to_use' => Yii::t('app','HowToUse'),
+            'medicine_name' => Yii::t('app','Medicines') ,
         ];
     }
 

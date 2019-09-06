@@ -63,33 +63,8 @@ JS;
 
     $url = \yii\helpers\Url::to(['medicine-list']);
     ?>
-    <?php
 
-    echo Select2::widget([
 
-        'name' => "receiptMedicines",
-        'value' => '',
-        'language' => 'ar',
-        'options' => ['multiple' => true, 'placeholder' => Yii::t('app','SelectMedicines')],
-        'pluginOptions' => [
-            'allowClear' => true,
-            'minimumInputLength' => 1,
-            'language' => [
-                'errorLoading' => new JsExpression("function () { return 'Waiting for results...'; }"),
-            ],
-            'ajax' => [
-                'url' => $url,
-                'dataType' => 'json',
-                'data' => new JsExpression('function(params) { return {q:params.term}; }')
-            ],
-            'escapeMarkup' => new JsExpression('function (markup) { return markup; }'),
-            'templateResult' => new JsExpression('function(item) { return \'<div class="row">\' + \'<div class="col-md-12">\' + \'<b >\' + item.text + \'</b>\' + \'</div>\' + \'</div>\'; }'),
-//            'templateResult' => new JsExpression('function(item) { return \'<div class="row">\' + \'<div class="col-md-12">\' + \'<b >\' + item.text + \'</b>\' + \'</div>\' + \'</div>\' + \'<div class="row">\' + \'<div class="col-md-6"><i class="fa fa-code-fork"></i> \' + item.caliber + \'</div>\' + \'<div class="col-md-6"><i class="fa fa-question-circle"></i> \' + item.how + \'</div>\' + \'</div>\'; }'),
-            'templateSelection' => new JsExpression('function (item) { return item.text + "\n"; }'),
-        ],
-    ]);
-
-    ?>
 
 <!-- new widget   -->
     <div class="panel panel-default">
@@ -130,17 +105,40 @@ JS;
                             }
                             ?>
 
+
+
                             <div class="row">
 
-
-
-                                <div class="col-sm-6">
-                                    <label></label>
-                                </div>
 
                                 <div class="col-sm-6">
                                     <?= $form->field($item, "[{$i}]caliber")->textInput(['maxlength' => true]) ?>
                                 </div>
+
+                                <div class="col-sm-6">
+                                    <?= $form->field($item, "[{$i}]medicine_id")->widget(Select2::classname(), [
+                                        'name' => "receiptMedicines",
+                                        'value' => '',
+                                        'language' => 'ar',
+                                        'options' => ['multiple' => false, 'placeholder' => Yii::t('app','SelectMedicines')],
+                                        'pluginOptions' => [
+                                            'allowClear' => true,
+                                            'minimumInputLength' => 1,
+                                            'language' => [
+                                                'errorLoading' => new JsExpression("function () { return 'Waiting for results...'; }"),
+                                            ],
+                                            'ajax' => [
+                                                'url' => $url,
+                                                'dataType' => 'json',
+                                                'data' => new JsExpression('function(params) { return {q:params.term}; }')
+                                            ],
+                                            'escapeMarkup' => new JsExpression('function (markup) { return markup; }'),
+                                            'templateResult' => new JsExpression('function(item) { return \'<div class="row">\' + \'<div class="col-md-12">\' + \'<b >\' + item.text + \'</b>\' + \'</div>\' + \'</div>\'; }'),
+                                            'templateSelection' => new JsExpression('function (item) { return item.text + "\n"; }'),
+                                        ],
+                                    ]); ?>
+                                </div>
+
+
 
                             </div>
 

@@ -231,3 +231,26 @@ vendor/bin/codecept run functional,unit -- --coverage-html --coverage-xml
 ```
 
 You can see code coverage output under the `tests/_output` directory.
+
+
+### Note Install system
+
+- In file `yii2-dynamic-form.js` need replace the code in js to fix problem
+```$xslt
+$.when($('#' + id).select2(configSelect2)).done(initSelect2Loading(id));
+
+initSelect2DropStyle(id)
+```
+
+`replace with this code`
+
+```
+ var s2LoadingFunc = typeof initSelect2Loading != 'undefined' ? initSelect2Loading : initS2Loading;
+ var s2OpenFunc = typeof initSelect2DropStyle != 'undefined' ? initSelect2Loading : initS2Loading;
+ $.when($('#' + id).select2(configSelect2)).done(s2LoadingFunc(id));
+
+    
+ s2OpenFunc(id);
+
+```  
+

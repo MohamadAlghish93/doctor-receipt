@@ -10,6 +10,7 @@ use app\models\ReceiptMedicine;
 use Yii;
 use app\models\Receipt;
 use app\models\ReceiptSearch;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -84,61 +85,55 @@ class ReceiptController extends Controller
             $date = date_create($model->date);
             $model->date = date_format($date,"Y/m/d H:i:s");
             $model->save();
+            $htmlObj = new HtmlRender();
 
+            //
             if (!empty($infoObj)) {
 
                 $image = $infoObj->logo;
-                $medicineVar = Yii::$app->request->post("receiptMedicines");
+//                $medicineVar = Yii::$app->request->post("receiptMedicines");
                 $medicineDetailArr = array();
-
-                $htmlObj = new HtmlRender();
-
 
                 $modelDetail = Model::createMultiple(MedicineDetail::classname());
                 Model::loadMultiple($modelDetail, Yii::$app->request->post());
 
-                $transaction = \Yii::$app->db->beginTransaction();
+                // ajax validation
+                if (Yii::$app->request->isAjax) {
+                    Yii::$app->response->format = Response::FORMAT_JSON;
+                    return ArrayHelper::merge(
+                        ActiveForm::validateMultiple($modelDetail),
+                        ActiveForm::validate($model)
+                    );
+                }
+
+                // validate all models
+                $valid = $model->validate();
+                $valid = Model::validateMultiple($modelDetail) && $valid;
+
                 $flag = false;
 
-                if (!empty($medicineVar)) {
-                    foreach ($medicineVar as $key => $value) {
+                if ($valid) {
+                    $transaction = \Yii::$app->db->beginTransaction();
+                    try {
 
-                        $elem = Medicine::findOne($value);
+                        foreach ($modelDetail as $item) {
 
-                        // ajax validation
-                        if (Yii::$app->request->isAjax) {
-                            Yii::$app->response->format = Response::FORMAT_JSON;
-                            return ArrayHelper::merge(
-                                ActiveForm::validateMultiple($modelDetail),
-                                ActiveForm::validate($elem)
-                            );
-                        }
-
-                        $valid = Model::validateMultiple($modelDetail) ;
-
-                        if ($valid) {
-
-                            try {
-                                $iter = $modelDetail[$key];
-
-                                $iter->medicine_id = $elem->id;
-                                if (! ($flag = $iter->save(false))) {
-                                    $transaction->rollBack();
-                                    break;
-                                }
-
-                                array_push($medicineDetailArr, $iter->id);
-
-                            } catch (Exception $e) {
+//                            $item->customer_id = $modelCustomer->id;
+                            if (! ($flag = $item->save(false))) {
                                 $transaction->rollBack();
+                                break;
                             }
+                            array_push($medicineDetailArr, $item->id);
                         }
+
+                        if ($flag) {
+                            $transaction->commit();
+                        }
+                    } catch (Exception $e) {
+                        $transaction->rollBack();
                     }
                 }
 
-                if ($flag) {
-                    $transaction->commit();
-                }
 
                 $table = $htmlObj->renderTable($medicineDetailArr, $model);
 
