@@ -50,8 +50,6 @@ use yii\web\JsExpression;
         '<div class="col-sm-5">' +
             '<b style="margin-left:5px">' + item.text + '</b>' + 
         '</div>' +
-        // '<div class="col-sm-3"><i class="fa fa-code-fork"></i> ' + item.caliber + '</div>' +
-        // '<div class="col-sm-3"><i class="fa fa-star"></i> ' + item.how + '</div>' +
     '</div>';
         if (item.description) {
           markup += '<p>' + item.description + '</p>';
@@ -164,7 +162,8 @@ JS;
 
     <br>
     <div class="form-group">
-        <?= Html::submitButton(Yii::t('app','Save'), ['class' => 'btn btn-success']) ?>
+    
+        <?= Html::submitButton(Yii::t('app','Save'), ['class' => 'btn btn-success']) ?>        
     </div>
 
     <?php ActiveForm::end(); ?>

@@ -50,6 +50,11 @@ class ReceiptController extends Controller
 
         $dataProvider = $searchModel->search($query);
 
+        $dataProvider->setSort([
+            'defaultOrder' => ['id'=>SORT_DESC]
+        ]);
+
+
         return $this->render("index", [
             "searchModel" => $searchModel,
             "dataProvider" => $dataProvider,
@@ -118,7 +123,6 @@ class ReceiptController extends Controller
 
                         foreach ($modelDetail as $item) {
 
-//                            $item->customer_id = $modelCustomer->id;
                             if (! ($flag = $item->save(false))) {
                                 $transaction->rollBack();
                                 break;
@@ -148,8 +152,15 @@ class ReceiptController extends Controller
                 $infoFooter['table'] = $infoFooterTbl;
                 $infoFooter['numberReceipt'] = $model->id;
 
-                return $pdf->actionReport($table, $infoHeader, $infoFooter, $infoPatient, $infoReceipt, $image, $data);
-
+                $pdf = $pdf->actionReport($table, $infoHeader, $infoFooter, $infoPatient, $infoReceipt, $image, $data);
+                
+                $tempFolder = sys_get_temp_dir();
+                $nameDate = date("Y-m-dh:i:s");
+                $nameFile = $model->patient_name . $nameDate. '.pdf';
+                $path = $tempFolder . '/' . $nameFile;
+                $pdf->Output($path, "F");
+                                                
+                return Yii::$app->response->sendFile($path, $nameFile);                
             }
         }
 

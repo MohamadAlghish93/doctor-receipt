@@ -97,7 +97,7 @@ class PdfCls
 //
         $this->pdf->SetTitle($data["patient_name"]);
 
-        return $this->pdf->Output();
+        return $this->pdf;
 //        $path = realpath(dirname(__FILE__)."/../../");
 //
 //        $nameDate = date("Y-m-dh:i:s");

@@ -10,6 +10,7 @@ use app\models\Model;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\debug\models\timeline\DataProvider;
 
 /**
  * MedicineController implements the CRUD actions for Medicine model.
@@ -39,7 +40,7 @@ class MedicineController extends Controller
     {
         $searchModel = new MedicineSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
+        
         return $this->render("index", [
             "searchModel" => $searchModel,
             "dataProvider" => $dataProvider,

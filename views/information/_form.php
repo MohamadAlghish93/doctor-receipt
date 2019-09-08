@@ -18,6 +18,7 @@ use dosamigos\tinymce\TinyMce;
                     "options" => ["enctype" => "multipart/form-data"]
             ]
     ); ?>
+        
 
     <?= $form->field($model, "name_doctor")->textInput(["maxlength" => true]) ?>
 
