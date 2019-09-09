@@ -24,14 +24,14 @@ $this->params["breadcrumbs"][] = $this->title;
         "attributes" => [
             "id",
             "name_doctor",
-            "address1:ntext",
+            "address1:html",
             "address2:ntext",
             "phone1",
             "phone2",
             "mobile1",
             "mobile2",
-            "bio:ntext",
-            "acceciblate:ntext",
+            "bio:html",
+            "acceciblate:html",
             "logo:image"
         ],
     ]) ?>

@@ -41,6 +41,7 @@ use yii\web\JsExpression;
 
     <?php
     $formatJs = <<< 'JS'
+    
     var formatRepo = function (item) {
         if (item.loading) {
             return item.text;
@@ -121,7 +122,7 @@ JS;
                                         'name' => "receiptMedicines",
                                         'value' => '',
                                         'language' => 'ar',
-                                        'options' => ['multiple' => false, 'placeholder' => Yii::t('app','SelectMedicines')],
+                                        'options' => ['multiple' => false, 'placeholder' => Yii::t('app','SelectMedicines'), 'onchange' => 'get_index($(this))'],
                                         'pluginOptions' => [
                                             'allowClear' => true,
                                             'minimumInputLength' => 1,
@@ -135,7 +136,7 @@ JS;
                                             ],
                                             'escapeMarkup' => new JsExpression('function (markup) { return markup; }'),
                                             'templateResult' => new JsExpression('function(item) { return \'<div class="row">\' + \'<div class="col-md-12">\' + \'<b >\' + item.text + \'</b>\' + \'</div>\' + \'</div>\'; }'),
-                                            'templateSelection' => new JsExpression('function (item) {$("#medicinedetail-0-how_to_use").val(item.how); return item.text + "\n"; }'),
+                                            'templateSelection' => new JsExpression('function (item) { set_value_to_how_textarea(item.how); return item.text + "\n"; }'),
                                         ],
                                     ]); ?>
                                 </div>
@@ -169,3 +170,21 @@ JS;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+<script type="application/javascript">
+
+    var index = -1;
+    function get_index(item) {
+
+        index  = item.attr("id").replace(/[^0-9.]/g, "");;
+    }
+
+    function set_value_to_how_textarea(value) {
+
+        if (index != -1 && value != undefined)
+            $("#medicinedetail-" + index + "-how_to_use").val(value);
+        else
+            index = -1;
+    }
+
+</script>

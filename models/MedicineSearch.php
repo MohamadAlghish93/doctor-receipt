@@ -18,7 +18,7 @@ class MedicineSearch extends Medicine
     {
         return [
             [['id'], 'integer'],
-            [['name_arabic', 'name_english', 'type'], 'safe'],
+            [['name_arabic', 'name_english', 'type', 'how_to_use'], 'safe'],
         ];
     }
 
@@ -63,7 +63,8 @@ class MedicineSearch extends Medicine
 
         $query->andFilterWhere(['like', 'name_arabic', $this->name_arabic])
             ->andFilterWhere(['like', 'name_english', $this->name_english])
-            ->andFilterWhere(['like', 'type', $this->type]);
+            ->andFilterWhere(['like', 'type', $this->type])
+            ->andFilterWhere(['like', 'how_to_use', $this->how_to_use]);
 
         return $dataProvider;
     }
