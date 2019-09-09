@@ -135,7 +135,7 @@ JS;
                                             ],
                                             'escapeMarkup' => new JsExpression('function (markup) { return markup; }'),
                                             'templateResult' => new JsExpression('function(item) { return \'<div class="row">\' + \'<div class="col-md-12">\' + \'<b >\' + item.text + \'</b>\' + \'</div>\' + \'</div>\'; }'),
-                                            'templateSelection' => new JsExpression('function (item) { return item.text + "\n"; }'),
+                                            'templateSelection' => new JsExpression('function (item) {$("#medicinedetail-0-how_to_use").val(item.how); return item.text + "\n"; }'),
                                         ],
                                     ]); ?>
                                 </div>

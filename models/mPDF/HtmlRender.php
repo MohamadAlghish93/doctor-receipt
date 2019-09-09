@@ -13,15 +13,17 @@ class HtmlRender
 
     public function renderTable($medicines, $modelLink) {
 
-        $table = '<table cellspacing="0" cellpadding="1" border="1">
-        <thead> 
-        <tr >
-        <th width="4%">#</th>
-        <th width="50%">الاسم</th>
-        <th width="12%">العيار</th> 
-        <th width="34%">الاستخدام</th>
-        </tr> </thead>         
-        <tbody>';
+        $table = '<table cellspacing="0" cellpadding="1" border="0">';
+
+//        $table .= '
+//        <thead>
+//        <tr >
+//        <th width="5%">#</th>
+//        <th width="50%">الاسم</th>
+//        <th width="12%">العيار</th>
+//        <th width="33%">الاستخدام</th>
+//        </tr> </thead>
+//        <tbody>';
 
         if (!empty($medicines)) {
             foreach ($medicines as $key=>$value){
@@ -34,10 +36,10 @@ class HtmlRender
                     $modelLink->link('receiptMedicines', $item);
 
                     $table .= '<tr>
-                    <th width="4%">' . ($key+1) . '</th>
+                    <th width="5%">-' . ($key+1) . '</th>
                     <td width="50%">' . $item->name_english . '</td>
                     <td width="12%">' . $elem->caliber . '</td> 
-                    <td width="34%">' . $elem->how_to_use . '</td> 
+                    <td width="33%">' . $elem->how_to_use . '</td> 
                     </tr>';
                 }
             }

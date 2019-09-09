@@ -231,7 +231,7 @@ class ReceiptController extends Controller
 
         if (!is_null($q)) {
             $query = new Query;
-            $query->select("medicine.id, medicine.name_english AS text ")
+            $query->select("medicine.id, medicine.name_english AS text, medicine.how_to_use AS how")
                 ->from("medicine")
                 ->where(["like", "medicine.name_english", $q])
                 ->limit(20);
@@ -243,7 +243,6 @@ class ReceiptController extends Controller
             $out["results"] = [
                 "id" => $id,
                 "text" => Medicine::find($id)->name_english,
-                "caliber" => Medicine::find($id)->caliber,
                 "how" => Medicine::find($id)->how_to_use,
             ];
         }

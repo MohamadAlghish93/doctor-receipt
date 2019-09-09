@@ -32,6 +32,7 @@ class Medicine extends \yii\db\ActiveRecord
     {
         return [
             [['name_arabic', 'name_english'], 'string', 'max' => 500],
+            [['how_to_use'], 'string'],
             [['type'], 'string', 'max' => 250],
         ];
     }
@@ -46,6 +47,7 @@ class Medicine extends \yii\db\ActiveRecord
             'name_arabic' => Yii::t('app','NameArabic') ,
             'name_english' => Yii::t('app','NameEnglish') ,
             'type' => Yii::t('app','Type') ,
+            'how_to_use' => Yii::t('app','HowToUse') ,
         ];
     }
 

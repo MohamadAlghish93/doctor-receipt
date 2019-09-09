@@ -32,7 +32,8 @@ $this->params["breadcrumbs"][] = $this->title;
             "id",
             "name_arabic",
             "name_english",
-            "type",
+            "how_to_use:ntext",
+//            "type",
         ],
     ]) ?>
 
