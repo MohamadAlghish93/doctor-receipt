@@ -9,6 +9,7 @@ use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
+use kartik\sidenav\SideNav;
 
 AppAsset::register($this);
 ?>
@@ -55,22 +56,50 @@ AppAsset::register($this);
     NavBar::end();
     ?>
 
-    <div class="container" dir="rtl">
+
+
+    <div class="container col-sm-9" dir="rtl">
         <?= Breadcrumbs::widget([
             "links" => isset($this->params["breadcrumbs"]) ? $this->params["breadcrumbs"] : [],
         ]) ?>
         <?= Alert::widget() ?>
+
         <?= $content ?>
+
+    </div>
+
+    <div class="container col-sm-3">
+        <?= SideNav::widget([
+            'type' => SideNav::TYPE_DEFAULT,
+            'heading' => '',
+            'items' => [
+                [
+                    'url' => ["/site/index"]    ,
+                    'label' => Yii::t("app","Home"),
+                    'icon' => 'home'
+                ],
+                [
+                    'label' => Yii::t("app","Patients"),
+                    'icon' => 'question-sign',
+                    'items' => [
+                        ['label' => Yii::t("app","Patients"), 'icon'=>'info-sign', 'url'=>["/receipt/index"]],
+                        ['label' => Yii::t("app","Receipt"), 'icon'=>'plus', 'url'=>["/receipt/create"]],
+                    ],
+                ],
+            ],
+        ]);
+
+        ?>
     </div>
 </div>
 
-<footer class="footer">
-    <div class="container">
-        <p class="pull-left">&copy; <?= date("Y") ?></p>
-
-        <p class="pull-right"><?= "SY"?></p>
-    </div>
-</footer>
+<!--<footer class="footer">-->
+<!--    <div class="container">-->
+<!--        <p class="pull-left">&copy; --><?//= date("Y") ?><!--</p>-->
+<!---->
+<!--        <p class="pull-right">--><?//= "SY"?><!--</p>-->
+<!--    </div>-->
+<!--</footer>-->
 
 <?php $this->endBody() ?>
 </body>

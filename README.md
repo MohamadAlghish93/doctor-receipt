@@ -254,3 +254,5 @@ initSelect2DropStyle(id)
 
 ```  
 
+- Edit the library `TCPDF` to accept arabic name folder in `tcpdf.php` remove 7563 uncomment
+

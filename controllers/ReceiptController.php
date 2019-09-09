@@ -157,10 +157,10 @@ class ReceiptController extends Controller
                 $tempFolder = sys_get_temp_dir();
                 $nameDate = date("Y-m-dh:i:s");
                 $nameFile = $model->patient_name . $nameDate. '.pdf';
-                $path = $tempFolder . '/' . $nameFile;
-                $pdf->Output($path, "F");
+                $path = $tempFolder . '\\' . $nameFile;
+                $pdf->Output($nameFile, "I");
                                                 
-                return Yii::$app->response->sendFile($path, $nameFile);                
+//                return Yii::$app->response->sendFile($path, $nameFile);
             }
         }
 
