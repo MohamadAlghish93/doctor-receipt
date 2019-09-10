@@ -15,16 +15,6 @@ class HtmlRender
 
         $table = '<table cellspacing="0" cellpadding="1" border="0">';
 
-//        $table .= '
-//        <thead>
-//        <tr >
-//        <th width="5%">#</th>
-//        <th width="50%">الاسم</th>
-//        <th width="12%">العيار</th>
-//        <th width="33%">الاستخدام</th>
-//        </tr> </thead>
-//        <tbody>';
-
         if (!empty($medicines)) {
             foreach ($medicines as $key=>$value){
 
@@ -36,11 +26,11 @@ class HtmlRender
                     $modelLink->link('receiptMedicines', $item);
 
                     $table .= '<tr>
-                    <th width="5%">-' . ($key+1) . '</th>
-                    <td width="50%">' . $item->name_english . '</td>
-                    <td width="12%">' . $elem->caliber . '</td> 
-                    <td width="33%">' . $elem->how_to_use . '</td> 
-                    </tr>';
+                    <th width="8%">-' . ($key+1) . '</th>
+                    <td width="92%">' . $elem->caliber . '  ' . $item->name_english  . '</td>
+                    </tr>' . '<tr>' .
+                    '<td width="100%">' . $elem->how_to_use . '</td>' .
+                    '</tr>';
                 }
             }
         }
@@ -60,6 +50,7 @@ class HtmlRender
 
             $table .= '<tr>
             <td width="50%">' . $infoObj->name_doctor  . '</td>
+            <td width="20%"></td>
             <td width="50%">' . $infoObj->bio . '</td>
             </tr>';
             $table .= '</tbody> </table>';
@@ -79,7 +70,7 @@ class HtmlRender
 
             $table .= '<tr>
                 <td width="40%">' . $infoObj->acceciblate . '</td>
-                <td width="10%"></td>
+                <td width="20%"></td>
                 <td width="50%">' . $infoObj->address1  . '</td>
                 </tr>';
             $table .= '</tbody> </table>';
@@ -100,9 +91,16 @@ class HtmlRender
 
     public function renderInformationPatient($patientName){
 
-        $info = '<p>' . 'اسم المريض :' . $patientName . ' ';
-        $info .= '&nbsp;&nbsp;' . 'الحالة :' . '__________'  . '</p>';
+        $table = '<table cellspacing="0" cellpadding="1" border="0" dir="rtl">
+            <tbody>';
 
-        return $info;
+        $table .= '<tr>
+            <td width="50%">' . 'الاسم :' . $patientName . '</td>
+            <td width="10%"></td>
+            <td width="50%">' . 'التاريخ :' . date('d/m/Y') . '</td>
+            </tr>';
+        $table .= '</tbody> </table>';
+
+        return $table;
     }
 }

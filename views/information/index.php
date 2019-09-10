@@ -20,7 +20,7 @@ $this->params["breadcrumbs"][] = $this->title;
         "columns" => [
 
             "id",
-            "name_doctor",
+            "name_doctor:html",
             "address1:html",
             "phone1",
             "mobile1",

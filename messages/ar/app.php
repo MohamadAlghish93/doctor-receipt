@@ -29,7 +29,7 @@ return [
     "Mobile2" => "موبايل 2",
     "Bio" => "السيرة الذاتية",
     "Informations" => "معلومات العيادة",
-    "Logo" => "شعار PDF",
+    "Logo" => "قياس صفحة الطباعة PDF",
     "SelectMedicines" => "الادوية",
     "Doctor" => "عيادة الطبيب",
     "HowToUse" => "طريقة الاستخدام",

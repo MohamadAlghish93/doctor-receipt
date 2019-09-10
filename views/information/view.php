@@ -23,7 +23,7 @@ $this->params["breadcrumbs"][] = $this->title;
         "model" => $model,
         "attributes" => [
             "id",
-            "name_doctor",
+            "name_doctor:html",
             "address1:html",
             "address2:ntext",
             "phone1",
@@ -32,7 +32,7 @@ $this->params["breadcrumbs"][] = $this->title;
             "mobile2",
             "bio:html",
             "acceciblate:html",
-            "logo:image"
+            "logo"
         ],
     ]) ?>
 

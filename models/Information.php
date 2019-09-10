@@ -36,9 +36,8 @@ class Information extends \yii\db\ActiveRecord
     {
         return [
             [['name_doctor', 'address1', 'phone1', 'mobile1', 'bio'], 'required'],
-            [['address1', 'address2', 'bio', 'acceciblate'], 'string'],
-            [['name_doctor', 'phone1', 'phone2', 'mobile1', 'mobile2'], 'string', 'max' => 250],
-            [['logo'], 'file', 'extensions' => 'jpg,png,gif'],
+            [['name_doctor', 'address1', 'address2', 'bio', 'acceciblate'], 'string'],
+            [[ 'logo', 'phone1', 'phone2', 'mobile1', 'mobile2'], 'string', 'max' => 250],
         ];
     }
 

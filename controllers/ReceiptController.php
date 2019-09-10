@@ -95,7 +95,6 @@ class ReceiptController extends Controller
             //
             if (!empty($infoObj)) {
 
-                $image = $infoObj->logo;
 //                $medicineVar = Yii::$app->request->post("receiptMedicines");
                 $medicineDetailArr = array();
 
@@ -144,7 +143,7 @@ class ReceiptController extends Controller
                 $infoHeader = $htmlObj->renderInformationHeader($infoObj);
                 $infoFooterTbl = $htmlObj->renderInformationFooter($infoObj);
                 $infoPatient = $htmlObj->renderInformationPatient($model->patient_name);
-                $infoReceipt = $htmlObj->renderInformationReceipt($model->id);
+                //$infoReceipt = $htmlObj->renderInformationReceipt($model->id);
 
                 $pdf = new PdfCls();
                 $data["patient_name"] = $model->patient_name;
@@ -152,7 +151,7 @@ class ReceiptController extends Controller
                 $infoFooter['table'] = $infoFooterTbl;
                 $infoFooter['numberReceipt'] = $model->id;
 
-                $pdf = $pdf->actionReport($table, $infoHeader, $infoFooter, $infoPatient, $infoReceipt, $image, $data);
+                $pdf = $pdf->actionReport($table, $infoHeader, $infoFooter, $infoPatient, $data, $infoObj->logo);
                 
                 $tempFolder = sys_get_temp_dir();
                 $nameDate = date("Y-m-dh:i:s");
