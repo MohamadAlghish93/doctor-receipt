@@ -11,6 +11,7 @@ use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 use kartik\sidenav\SideNav;
 
+
 AppAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
@@ -93,13 +94,6 @@ AppAsset::register($this);
     </div>
 </div>
 
-<!--<footer class="footer">-->
-<!--    <div class="container">-->
-<!--        <p class="pull-left">&copy; --><?//= date("Y") ?><!--</p>-->
-<!---->
-<!--        <p class="pull-right">--><?//= "SY"?><!--</p>-->
-<!--    </div>-->
-<!--</footer>-->
 
 <?php $this->endBody() ?>
 </body>

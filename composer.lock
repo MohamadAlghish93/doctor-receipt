@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "60a88d0ab7a419dec2efa40f6743df54",
+    "content-hash": "3e98318f751a46c552207289412889ce",
     "packages": [
         {
             "name": "2amigos/yii2-date-picker-widget",
@@ -153,12 +153,12 @@
             "version": "v1.7.0",
             "source": {
                 "type": "git",
-                "url": "git@github.com:eternicode/bootstrap-datepicker.git",
+                "url": "https://github.com/uxsolutions/bootstrap-datepicker.git",
                 "reference": "d364be5b066b38f3675a5a1dc174ce1ab1f3360e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/eternicode/bootstrap-datepicker/zipball/d364be5b066b38f3675a5a1dc174ce1ab1f3360e",
+                "url": "https://api.github.com/repos/uxsolutions/bootstrap-datepicker/zipball/d364be5b066b38f3675a5a1dc174ce1ab1f3360e",
                 "reference": "d364be5b066b38f3675a5a1dc174ce1ab1f3360e"
             },
             "require": {
@@ -183,6 +183,27 @@
                 "reference": "b35a579e58c7fdc7c7358d1c4daade7887dc91eb"
             },
             "type": "bower-asset"
+        },
+        {
+            "name": "bower-asset/gasparesganga-jquery-loading-overlay",
+            "version": "v1.5.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/gasparesganga/jquery-loading-overlay.git",
+                "reference": "05c1d773579b0b544b9d710004308624cd13760d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/gasparesganga/jquery-loading-overlay/zipball/05c1d773579b0b544b9d710004308624cd13760d",
+                "reference": "05c1d773579b0b544b9d710004308624cd13760d"
+            },
+            "require": {
+                "bower-asset/jquery": ">=1.7.0"
+            },
+            "type": "bower-asset",
+            "license": [
+                "MIT"
+            ]
         },
         {
             "name": "bower-asset/inputmask",
@@ -1451,6 +1472,51 @@
                 "shim"
             ],
             "time": "2019-08-06T08:03:45+00:00"
+        },
+        {
+            "name": "timurmelnikov/yii2-loading-overlay",
+            "version": "v1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/timurmelnikov/yii2-loading-overlay.git",
+                "reference": "316b963c5b3998a2612472caea7d53a1d1545973"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/timurmelnikov/yii2-loading-overlay/zipball/316b963c5b3998a2612472caea7d53a1d1545973",
+                "reference": "316b963c5b3998a2612472caea7d53a1d1545973",
+                "shasum": ""
+            },
+            "require": {
+                "bower-asset/gasparesganga-jquery-loading-overlay": "1.5.*",
+                "yiisoft/yii2": "*"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "timurmelnikov\\widgets\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Timur Melnikov",
+                    "email": "melnilovt@gmail.com"
+                }
+            ],
+            "description": "Yii2 виджет-обертка для использования плагина jQuery LoadingOverlay",
+            "keywords": [
+                "LoadingOverlay",
+                "ajax",
+                "jquery",
+                "pjax",
+                "widget",
+                "yii2"
+            ],
+            "time": "2017-10-25T08:44:34+00:00"
         },
         {
             "name": "tinymce/tinymce",

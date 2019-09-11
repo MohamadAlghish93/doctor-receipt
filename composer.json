@@ -26,7 +26,8 @@
         "wbraganca/yii2-dynamicform": "^2.0",
         "2amigos/yii2-tinymce-widget": "~1.1",
         "2amigos/yii2-date-picker-widget": "~1.0",
-        "kartik-v/yii2-widget-sidenav": "*"
+        "kartik-v/yii2-widget-sidenav": "*",
+        "timurmelnikov/yii2-loading-overlay": "~1.0.0"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",
