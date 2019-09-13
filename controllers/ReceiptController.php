@@ -82,7 +82,7 @@ class ReceiptController extends Controller
     public function actionCreate()
     {
         $model = new Receipt();
-        $modelDetail = [new MedicineDetail()];
+        $modelDetail = [new MedicineDetail(), new MedicineDetail(), new MedicineDetail()];
 
         if ($model->load(Yii::$app->request->post())) {
 

@@ -41,7 +41,7 @@ class PdfCls
     public function actionReport($tbl, $infoHeader, $infoFooter, $patientInfo, $data, $sizePrint) {
 
         $this->pdf = new MYPDF("p", "mm", $sizePrint, true, "UTF-8", false);
-        $this->pdf->SetFont("arial");
+        $this->pdf->SetFont("arial",'', 8);
         $this->pdf->setRTL(true);
         $this->pdf->infoH = $infoHeader;
         $this->pdf->infoF = $infoFooter;
@@ -59,7 +59,10 @@ class PdfCls
         $this->pdf->SetAlpha(1);
 
         $this->pdf->writeHTML($patientInfo, true, false, false, false, "R");
-        $this->pdf->writeHTML($tbl, true, false, false, false, "R");
+
+        $this->pdf->setRTL(false);
+        $this->pdf->Cell(0, 0, 'Rx)', 0, 1, 'L', 0, '', 0);
+        $this->pdf->writeHTML($tbl, true, false, false, false, "L");
 
         $this->addBreakLine();
 

@@ -13,7 +13,7 @@ class HtmlRender
 
     public function renderTable($medicines, $modelLink) {
 
-        $table = '<table cellspacing="0" cellpadding="1" border="0">';
+        $table = '<table cellspacing="0" cellpadding="1" border="0" style="float: left">';
 
         if (!empty($medicines)) {
             foreach ($medicines as $key=>$value){
@@ -26,11 +26,12 @@ class HtmlRender
                     $modelLink->link('receiptMedicines', $item);
 
                     $table .= '<tr>
-                    <th width="8%">-' . ($key+1) . '</th>
-                    <td width="92%">' . $elem->caliber . '  ' . $item->name_english  . '</td>
-                    </tr>' . '<tr>' .
-                    '<td width="100%">' . $elem->how_to_use . '</td>' .
-                    '</tr>';
+                    <th width="8%">' . $this->integerToRoman($key+1) . ')</th>
+                    <td width="92%">' . $item->name_english . '  '  . $elem->caliber   . '</td>
+                    </tr>' . '<tr style="float: right;">' .
+                    '<td width="100%" style="text-align:right">' . $elem->how_to_use . '</td>' .
+                    '</tr>' .
+                    '<tr><td></td></tr>';
                 }
             }
         }
@@ -79,28 +80,53 @@ class HtmlRender
         return $table;
     }
 
-
-    public function renderInformationReceipt($number){
-
-        $info = '';
-        $info .= '<p> # '. $number.'</p>';
-        $info .= '<p>'. 'التاريخ :' . date('d/m/y') .'</p>';
-
-        return $info;
-    }
-
     public function renderInformationPatient($patientName){
 
         $table = '<table cellspacing="0" cellpadding="1" border="0" dir="rtl">
             <tbody>';
 
         $table .= '<tr>
-            <td width="50%">' . 'الاسم :' . $patientName . '</td>
+            <td width="50%">' . '' . $patientName . '</td>
             <td width="10%"></td>
-            <td width="50%">' . 'التاريخ :' . date('d/m/Y') . '</td>
+            <td width="50%">' . '' . date('d/m/Y') . '</td>
             </tr>';
         $table .= '</tbody> </table>';
 
         return $table;
+    }
+
+    public function integerToRoman($integer) {
+
+        $integer = intval($integer);
+        $result = '';
+
+        $lookup = array('M' => 1000,
+            'CM' => 900,
+            'D' => 500,
+            'CD' => 400,
+            'C' => 100,
+            'XC' => 90,
+            'L' => 50,
+            'XL' => 40,
+            'X' => 10,
+            'IX' => 9,
+            'V' => 5,
+            'IV' => 4,
+            'I' => 1);
+
+        foreach($lookup as $roman => $value){
+            // Determine the number of matches
+            $matches = intval($integer/$value);
+
+            // Add the same number of characters to the string
+            $result .= str_repeat($roman,$matches);
+
+            // Set the integer to be the remainder of the integer and the value
+            $integer = $integer % $value;
+        }
+
+        // The Roman numeral should be built, return it
+        return $result;
+
     }
 }

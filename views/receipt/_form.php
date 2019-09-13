@@ -85,6 +85,7 @@ JS;
                 'formId' => 'dynamic-form',
                 'formFields' => [
                     'caliber',
+                    'medicine_id',
                     'how_to_use',
                 ],
             ]); ?>
@@ -173,18 +174,22 @@ JS;
 
 <script type="application/javascript">
 
+    function set_value_to_how_textarea(value) {
+
+        if (index != -1 && value != undefined) {
+            $("#medicinedetail-" + index + "-how_to_use").val(value);
+            index = -1;
+        }
+        else
+            index = -1;
+    }
+
     var index = -1;
     function get_index(item) {
 
         index  = item.attr("id").replace(/[^0-9.]/g, "");;
     }
 
-    function set_value_to_how_textarea(value) {
 
-        if (index != -1 && value != undefined)
-            $("#medicinedetail-" + index + "-how_to_use").val(value);
-        else
-            index = -1;
-    }
 
 </script>
